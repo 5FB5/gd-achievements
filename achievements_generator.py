@@ -19,21 +19,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-VERSION = "1.0.1-beta"
+VERSION = "1.0.2-beta"
 
 isStopped = False # for working of main function
 
 dataSet = {} # main data set for json file
 
 import json
-from termcolor import colored, cprint # must be installed
-from colorama import init # must be installed
-
-init()
 
 print("\nAchievement JSON File Generator")
 print("by 5FB5")
-print("ver. " + VERSION)
+print("Version: " + VERSION)
 print("___________________________________")
 
 def generateJson(data):
@@ -43,7 +39,7 @@ def generateJson(data):
     with open('achievements.json', 'w') as fileResult:
         json.dump(data, fileResult)
 
-    print(colored("File 'achievements.json' created and saved in current folder!", 'green'))
+    print("File 'achievements.json' created and saved in current folder!", 'green')
     pass
 
 while (isStopped == False):
