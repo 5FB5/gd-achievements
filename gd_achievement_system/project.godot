@@ -16,7 +16,18 @@ _global_script_class_icons={
 [application]
 
 config/name="gd_achievement_system"
+run/main_scene="res://achievements/resources/game_ui/ui_achievements_main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Global="*res://global.gd"
+
+[display]
+
+window/size/resizable=false
+window/size/test_width=1600
+window/size/test_height=900
 
 [rendering]
 
