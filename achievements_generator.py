@@ -19,7 +19,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-VERSION = "1.0.2-beta"
+VERSION = "1.0.3-beta"
 
 isStopped = False # for working of main function
 
@@ -39,7 +39,7 @@ def generateJson(data):
     with open('achievements.json', 'w') as fileResult:
         json.dump(data, fileResult)
 
-    print("File 'achievements.json' created and saved in current folder!", 'green')
+    print("File 'achievements.json' created and saved in current folder!")
     pass
 
 while (isStopped == False):

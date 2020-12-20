@@ -2,7 +2,8 @@ extends Node
 
 const achievementsDataFileDefaultAddress = "res://achievements/data/achievements.json"
 
-var achievementsData = {}
+# You must create or add in current singleton script dictionary that stores achievements data
+onready var achievements = get_node("/root/Global").achievements
 
 func getAchievements():
 	var file = File.new()
@@ -14,7 +15,8 @@ func getAchievements():
 	pass
 
 func _init():
-	achievementsData = getAchievements()
-
-	for achievementName in achievementsData:
-		print(achievementName)
+	achievements = getAchievements()
+	
+	# test
+	for achievementName in achievements:
+		print(achievementName + " : " + achievements[achievementName]['description'])
