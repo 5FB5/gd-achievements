@@ -1,3 +1,3 @@
 extends Node
 
-var achievements = {}
+onready var globalAchievements = {}
