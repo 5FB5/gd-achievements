@@ -11,3 +11,4 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="showAchievement" from="." to="." method="_on_root_showAchievement" flags=6]

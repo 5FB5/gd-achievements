@@ -62,7 +62,8 @@ __meta__ = {
 }
 
 [node name="achievementPanel" type="Control" parent="."]
-margin_right = 39.9999
+margin_left = -560.0
+margin_right = -520.0
 margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
