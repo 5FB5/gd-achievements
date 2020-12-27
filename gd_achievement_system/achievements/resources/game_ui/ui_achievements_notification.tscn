@@ -103,10 +103,9 @@ __meta__ = {
 }
 
 [node name="description" type="Label" parent="achievementPanel/achievementDescription"]
-margin_top = 11.0
+margin_top = 36.0
 margin_right = 245.0
-margin_bottom = 76.0
-text = "Hello, this is test description for achievement that I want to use in my achievement system for Flappy Gaben!"
+margin_bottom = 50.0
 align = 1
 autowrap = true
 
