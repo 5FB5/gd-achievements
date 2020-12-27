@@ -6,3 +6,4 @@ gd_achievement_system/achievements/resources/sounds/*
 gd_achievement_system/test.*
 
 achievements.json
+gd_achievement_system/default_bus_layout.tres
