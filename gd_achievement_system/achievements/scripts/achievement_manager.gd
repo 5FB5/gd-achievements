@@ -11,6 +11,7 @@ var m_achievements = {}
 var achievementsDataScript = null
 var achievementUiNotification = null
 
+# Main call signal that accepts index of an achievement from array
 signal showAchievement(index)
 
 func _init():
@@ -41,7 +42,7 @@ func activateAchievement(achievementIndex):
 		yield(get_tree().create_timer(3), "timeout")
 		achievementUiNotification.queue_free()
 	else:
-		print("Code Error: Attempt to read an achievement under a key index that is out of range (", achievementIndex, " of ", len(m_achievements.keys()) - 1, ")")
+		print("Code Error: Attempt to read an achievement from array under a key index that is out of range (", achievementIndex, " of ", len(m_achievements.keys()) - 1, ")")
 	
 	pass
 	
