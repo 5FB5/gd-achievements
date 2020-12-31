@@ -1,6 +1,9 @@
 gd_achievement_system/.import
 gd_achievement_system/export_presets.cfg
 gd_achievement_system/achievements/data/*
-gd_achievement_system/achievements/resources/icons
+gd_achievement_system/achievements/resources/icons/*
+gd_achievement_system/achievements/resources/sounds/*
+gd_achievement_system/test.*
 
 achievements.json
+gd_achievement_system/default_bus_layout.tres

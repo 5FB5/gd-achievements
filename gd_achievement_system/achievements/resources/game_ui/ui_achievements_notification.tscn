@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://achievements/resources/icons/achievement_test.png" type="Texture" id=1]
+[ext_resource path="res://achievements/resources/sounds/achievement_earned.wav" type="AudioStream" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0627451, 0.0509804, 0.0509804, 0.705882 )
@@ -62,7 +63,8 @@ __meta__ = {
 }
 
 [node name="achievementPanel" type="Control" parent="."]
-margin_right = 39.9999
+margin_left = -560.0
+margin_right = -520.0
 margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -103,10 +105,9 @@ __meta__ = {
 }
 
 [node name="description" type="Label" parent="achievementPanel/achievementDescription"]
-margin_top = 11.0
+margin_top = 36.0
 margin_right = 245.0
-margin_bottom = 76.0
-text = "Hello, this is test description for achievement that I want to use in my achievement system for Flappy Gaben!"
+margin_bottom = 50.0
 align = 1
 autowrap = true
 
@@ -124,3 +125,8 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/hide = SubResource( 2 )
 anims/popup = SubResource( 3 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -15.0
+mix_target = 2
