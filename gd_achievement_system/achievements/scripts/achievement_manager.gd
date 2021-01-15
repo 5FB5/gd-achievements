@@ -6,6 +6,8 @@ const ACHIEVEMENT_UI_NOTIFICATION_ADDRESS = "res://achievements/resources/game_u
 # How long achievement will be shown (seconds)
 export var ACHIEVEMENT_SHOW_TIME = 4.7
 
+var ACHIEVEMENT_SHOW_END_TIME = 3.5
+
 var m_achievements = {}
 
 var achievementCount = 0;
@@ -56,10 +58,10 @@ func activateAchievement(achievementIndex):
 		yield(achievementUiNotification.get_tree().create_timer(ACHIEVEMENT_SHOW_TIME), "timeout")
 		# Play hide animation
 		achievementUiNotification.get_node("AnimationPlayer").play("hide")
-		# Delete node
-		yield(get_tree().create_timer(3), "timeout")
-		achievementUiNotification.queue_free()
 		achievementCount -= 1
+		# Delete node
+		yield(get_tree().create_timer(ACHIEVEMENT_SHOW_END_TIME), "timeout")
+		achievementUiNotification.queue_free()
 
 	else:
 		print("Code Error: Attempt to read an achievement from array under a key index that is out of range (", achievementIndex, " of ", len(m_achievements.keys()) - 1, ")")
