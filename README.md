@@ -14,7 +14,7 @@ By default you must take "achievements" folder and copy it to project's root fol
 
 ![file_example](https://i.imgur.com/BmPB62f.png)
 
-# Adding it in your project
+# Using it in your project
 
 * Open your Godot project
 
