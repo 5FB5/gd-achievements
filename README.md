@@ -10,15 +10,23 @@ By default you must take "achievements" folder and copy it to project's root fol
 
 * Place achievements.json that created by script to "achievements/data" folder (if you want to change file's destination, you must check and change paths in achievement_data.gd and achievement_manager.gd)
 
+* Structure of JSON file included: main achievement's name, inside it we have description of achievement, "is_secret" field that means is your achievement is secret (use it how you want, for me I want to use it with GameJolt API), maximum progress value that you can use for comparison between current game's data and achievement's data, "icon_path" that stores path to icon in Godot's project.
+
+![file_example](https://i.imgur.com/BmPB62f.png)
+
+# Adding it in your project
+
 * Open your Godot project
 
 * Place "ui_achievements_main.tscn" from "achievements/resources/game_ui" into scene you need.
 
 * To activate achievement UI notification window, just call " emit_signal("showAchievement", <array's index of achievement>) " from node.
 For example, I've spawned all 3 achievements from file that I generated
+
 ![example2](https://i.imgur.com/R5eTN0z.png)
 
 As a result you'll see something like this
+
 ![example3](https://i.imgur.com/HKMcwmJ.png)
 
 I'll accept all problems and suggestions that you write in the repository on GitHub on "Issues" section
