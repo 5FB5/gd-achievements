@@ -29,4 +29,13 @@ As a result you'll see something like this
 
 ![example3](https://i.imgur.com/HKMcwmJ.png)
 
-I'll accept all problems and suggestions that you write in the repository on GitHub on "Issues" section
+# Q/A
+## Q: I've added it in my project, but I can't use "showAchievement" command.
+**A:** Check that "ui_achievements_main.tscn" scene, that you add in your game level, have an "achievement_manager.gd" script and load it if it doesn't. Repeat it with "ui_achievements_notification.tscn" scene and add "achievement_data.gd" script.
+
+## Q: I have "ERROR: Cannot load source code from file 'res://achievements/scripts/achievement_manager.gd'". How to fix it?
+**A:** This is the error directly from "ui_achievement_main.tscn" scene. 
+
+Open "../achievement/resources/game_ui/ui_achievement_main.tscn" and add "achievement_manager.gd" in it.
+
+# I'll accept all problems and suggestions that you write in the repository on GitHub on "Issues" section
