@@ -34,7 +34,7 @@ As a result you'll see something like this
 **A:** Check that "ui_achievements_main.tscn" scene, that you add in your game level, have an "achievement_manager.gd" script and load it if it doesn't. Repeat it with "ui_achievements_notification.tscn" scene and add "achievement_data.gd" script.
 
 ## Q: I have "ERROR: Cannot load source code from file 'res://achievements/scripts/achievement_manager.gd'". How to fix it?
-**A:** This is the error directly from "ui_achievement_main.tscn" scene. 
+**A:** This is the error directly from "ui_achievement_main.tscn" scene 'cause it attempts to read script from default address (if you place addon in custom destination). 
 
 Open "../achievement/resources/game_ui/ui_achievement_main.tscn" and add "achievement_manager.gd" in it.
 
