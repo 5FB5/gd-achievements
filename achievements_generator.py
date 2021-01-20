@@ -91,6 +91,9 @@ def createNewFile():
             achievementIconPath = achievementNewIconPath = input("Enter new icon's path (in Godot's format): ") if isOverwriteIconPath == 'n' else achievementIconPath
             dataSet[achievementName]['icon_path'] = achievementNewIconPath if isOverwriteIconPath == 'n' else achievementIconPath
 
+        # Set the default value that the player has not received this achievement at the moment
+        dataSet[achievementName]['is_have'] = 0
+
         # Set flag to 'y' or 'n' to continue adding achievements or not
         bContinue = input("Do you want to add new achievement?: y/n: ")
         
@@ -148,7 +151,10 @@ def addDataInCurrentFile():
                     isOverwriteIconPath = input('Do you want to set previous icon path? \ny/n: ')
                     achievementIconPath = achievementNewIconPath = input("Enter new icon's path (in Godot's format): ") if isOverwriteIconPath == 'n' else achievementIconPath
                     dataSet[achievementName]['icon_path'] = achievementNewIconPath if isOverwriteIconPath == 'n' else achievementIconPath
-
+                
+                # Set the default value that the player has not received this achievement at the moment
+                dataSet[achievementName]['is_have'] = 0
+                
                 # Set flag to 'y' or 'n' to continue adding achievements or not
                 bContinue = input("Do you want to add new achievement? \ny/n: ")
             
