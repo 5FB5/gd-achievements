@@ -161,7 +161,8 @@ def addDataInCurrentFile():
 
     # If we don't want to modify file, call the function that creates file from skretch
     else:
-        createNewFile()
+        isExit = input('You really want to quit or create new file? \nq\c: ')
+        sys.exit() if isExit == 'q' else createNewFile()
 
 print("\nAchievement JSON File Generator")
 print("by 5FB5")
