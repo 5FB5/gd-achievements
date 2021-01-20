@@ -10,9 +10,9 @@ By default you must take "achievements" folder and copy it to project's root fol
 
 * Place achievements.json that created by script to "achievements/data" folder (if you want to change file's destination, you must check and change paths in achievement_data.gd and achievement_manager.gd)
 
-* Structure of JSON file included: main achievement's name, inside it we have description of achievement, "is_secret" field that means is your achievement is secret (use it how you want, for me I want to use it with GameJolt API), maximum progress value that you can use for comparison between current game's data and achievement's data, "icon_path" that stores path to icon in Godot's project.
+* Structure of JSON file included: main achievement's name, inside it we have description of achievement, *"is_secret"* field that means is your achievement is secret (use it how you want, for me I want to use it with GameJolt API), maximum progress value that you can use for comparison between current game's data and achievement's data, "icon_path" that stores path to icon in Godot's project. You can use the *"is_have"* field to check and store information about whether a player has already received a particular achievement. For example, when player completed task, game can check current state of achievement with field from file and rewrite *json* file, denoting that the player received it.
 
-![file_example](https://i.imgur.com/BmPB62f.png)
+![file_example](https://i.imgur.com/7hgEoWW.png)
 
 # Using it in your project
 
