@@ -6,7 +6,7 @@ By default you must take "achievements" folder and copy it to project's root fol
 
 # How it works?
 * Generate/modify your JSON file via "achievements_generator.py" script. It accepts name of achievement, description, path to icons(by default I've created achievement/resources/icons folder and you can use it)
-![example1](https://i.imgur.com/n05Mxpl.png)
+![example1](https://i.imgur.com/fS0G9sa.png)
 
 * Place achievements.json that created by script to "achievements/data" folder (if you want to change file's destination, you must check and change paths in achievement_data.gd and achievement_manager.gd)
 
