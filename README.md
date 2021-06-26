@@ -1,3 +1,5 @@
+# THIS ADDON IS ON RE-CONSTRUCTION!!! DON'T USE IT!!!
+
 # gd-achievements
 Simple achievement system template for Godot Engine ver. 3+ projects
 
