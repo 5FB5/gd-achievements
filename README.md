@@ -2,7 +2,8 @@
 Simple achievement system template for Godot Engine ver. 3+ projects
 
 # How to install in your project?
-By default you must take "achievements" folder and copy it to project's root folder. In Godot destination must be like "res://achievements/..."
+## Copy from GitHub repository
+Initially, the plugin is located in the "addons" folder. If your project does not have this folder, you can copy the plugin along with this folder into the project. If you have, copy only "gd-achievements" folder to your current "addons" folder in your project
 
 # How it works?
 * Generate/modify your JSON file via "achievements_generator.py" script. It accepts name of achievement, description, path to icons(by default I've created achievement/resources/icons folder and you can use it)
