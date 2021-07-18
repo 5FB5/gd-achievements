@@ -4,15 +4,14 @@ extends Control
 
 const ACHIEVEMENT_DATA_SCRIPT_ADDRESS = "res://addons/gd-achievements/scripts/achievement_data.gd"
 const ACHIEVEMENT_UI_NOTIFICATION_ADDRESS = "res://addons/gd-achievements/resources/game_ui/achievements_notification.tscn"
+const ACHIEVEMENT_SHOW_END_TIME = 1.5
 
 # How long achievement will be shown (seconds)
 export var SHOW_TIME = 4.7
 # Global sound for all achievements
 export var globalSound = preload("res://addons/gd-achievements/resources/sounds/achievement_earned.wav")
-
-export var globalSoundVolumeDb = 1
-
-const ACHIEVEMENT_SHOW_END_TIME = 1.5
+# -200 = mute, -20 = default volume for notification ('cause basic sound is too loud), 0 = original sound's volume
+export var globalSoundVolume = -20.0
 
 # Main array with achievements
 var m_achievements = {}
@@ -32,18 +31,19 @@ func _init():
 	achievementsDataScript = load(ACHIEVEMENT_DATA_SCRIPT_ADDRESS).new()
 	# Getting all achievement's data
 	m_achievements = achievementsDataScript.getAchievements()
-	# Spawn AudioStreamPlayer node
-	initSoundNode()
 	pass
 
 func _ready():
+	# Spawn AudioStreamPlayer node
+	initSoundNode()
+	
 	connect("showAchievement", self, "activateAchievement")
 	pass
 
 # Create audio node for playing sound
 func initSoundNode():
 	soundNode.set_stream(globalSound)
-	soundNode.volume_db = globalSoundVolumeDb
+	soundNode.set_volume_db(globalSoundVolume)
 	add_child(soundNode)
 	pass
 	
