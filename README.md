@@ -1,5 +1,5 @@
 # gd-achievements
-Achievement system plugin for Godot 3.3.x Engine
+Achievement system plugin for Godot 3.x.x Engine
 
 # How to install in your project?
 ## Copy from GitHub repository
