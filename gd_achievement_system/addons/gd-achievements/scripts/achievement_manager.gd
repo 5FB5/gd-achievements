@@ -1,12 +1,14 @@
-extends Node
+tool
 
-const ACHIEVEMENT_DATA_SCRIPT_ADDRESS = "res://achievements/scripts/achievement_data.gd"
-const ACHIEVEMENT_UI_NOTIFICATION_ADDRESS = "res://achievements/resources/game_ui/ui_achievements_notification.tscn"
+extends Control
+
+const ACHIEVEMENT_DATA_SCRIPT_ADDRESS = "res://addons/gd-achievements/scripts/achievement_data.gd"
+const ACHIEVEMENT_UI_NOTIFICATION_ADDRESS = "res://addons/gd-achievements/resources/game_ui/achievements_notification.tscn"
 
 # How long achievement will be shown (seconds)
 export var ACHIEVEMENT_SHOW_TIME = 4.7
 
-var ACHIEVEMENT_SHOW_END_TIME = 1.5
+const ACHIEVEMENT_SHOW_END_TIME = 1.5
 
 # Main array with achievements
 var m_achievements = {}
@@ -17,6 +19,12 @@ var achievementCurrentPosY = 0
 var achievementsDataScript = null
 var achievementUiNotificationInstance = null
 
+# ACHIEVEMENT'S SOUND PARAMETERS
+var achievementSound = preload("res://addons/gd-achievements/resources/sounds/achievement_earned.wav")
+var soundNode = AudioStreamPlayer.new()
+
+const ACHIEVEMENT_SOUND_VOL = 1
+
 # Main call signal that accepts index of an achievement from array
 signal showAchievement(index)
 
@@ -24,8 +32,21 @@ func _init():
 	achievementsDataScript = load(ACHIEVEMENT_DATA_SCRIPT_ADDRESS).new()
 	# Getting all achievement's data
 	m_achievements = achievementsDataScript.getAchievements()
+	
+	connect("showAchievement", self, "activateAchievement")
+	
+	# Spawn AudioStreamPlayer node
+	initSoundNode()
 	pass
 
+# Create audio node for playing sound
+func initSoundNode():
+	soundNode.set_stream(achievementSound)
+	soundNode.volume_db = ACHIEVEMENT_SOUND_VOL
+	
+	add_child(soundNode)
+	pass
+	
 func activateAchievement(achievementIndex):
 	if ((achievementCount >= 0) and (achievementCount <= len(m_achievements.keys()) - 1) and (achievementIndex <= len(m_achievements.keys()) - 1)):
 		# Preload instance of scene
@@ -51,7 +72,7 @@ func activateAchievement(achievementIndex):
 		# Set icon path
 		achievementUiNotification.get_node("achievementPanel/achievementIcon/TextureRect").texture = load(m_achievements.values()[int(achievementIndex)]['icon_path'])
 		# Play sound
-		achievementUiNotification.get_node("AudioStreamPlayer").play()
+		soundNode.play()
 		# Play animation
 		achievementUiNotification.get_node("AnimationPlayer").play("popup")
 		
@@ -67,10 +88,7 @@ func activateAchievement(achievementIndex):
 		achievementUiNotification.queue_free()
 
 	else:
-		print("Code Error: Attempt to read an achievement from array under a key index that is out of range (", achievementIndex, " of ", len(m_achievements.keys()) - 1, ")")
+		print("Error: Attempt to read an achievement from array under a key index that is out of range (", 
+				achievementIndex, " of ", len(m_achievements.keys()) - 1, ")")
 	
-	pass
-	
-func _on_root_showAchievement(index):
-	activateAchievement(index)
 	pass

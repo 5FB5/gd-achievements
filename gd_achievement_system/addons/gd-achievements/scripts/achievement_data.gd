@@ -1,7 +1,9 @@
+tool
+
 extends Node
 
 # You can change this path
-const achievementsDataFileDefaultAddress = "res://achievements/data/achievements.json"
+const achievementsDataFileDefaultAddress = "res://addons/gd-achievements/resources/data/achievements.json"
 
 func getAchievements():
 	var file = File.new()
