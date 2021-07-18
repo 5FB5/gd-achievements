@@ -6,7 +6,11 @@ const ACHIEVEMENT_DATA_SCRIPT_ADDRESS = "res://addons/gd-achievements/scripts/ac
 const ACHIEVEMENT_UI_NOTIFICATION_ADDRESS = "res://addons/gd-achievements/resources/game_ui/achievements_notification.tscn"
 
 # How long achievement will be shown (seconds)
-export var ACHIEVEMENT_SHOW_TIME = 4.7
+export var SHOW_TIME = 4.7
+# Global sound for all achievements
+export var globalSound = preload("res://addons/gd-achievements/resources/sounds/achievement_earned.wav")
+
+export var globalSoundVolumeDb = 1
 
 const ACHIEVEMENT_SHOW_END_TIME = 1.5
 
@@ -19,11 +23,7 @@ var achievementCurrentPosY = 0
 var achievementsDataScript = null
 var achievementUiNotificationInstance = null
 
-# ACHIEVEMENT'S SOUND PARAMETERS
-var achievementSound = preload("res://addons/gd-achievements/resources/sounds/achievement_earned.wav")
 var soundNode = AudioStreamPlayer.new()
-
-const ACHIEVEMENT_SOUND_VOL = 1
 
 # Main call signal that accepts index of an achievement from array
 signal showAchievement(index)
@@ -32,18 +32,18 @@ func _init():
 	achievementsDataScript = load(ACHIEVEMENT_DATA_SCRIPT_ADDRESS).new()
 	# Getting all achievement's data
 	m_achievements = achievementsDataScript.getAchievements()
-	
-	connect("showAchievement", self, "activateAchievement")
-	
 	# Spawn AudioStreamPlayer node
 	initSoundNode()
 	pass
 
+func _ready():
+	connect("showAchievement", self, "activateAchievement")
+	pass
+
 # Create audio node for playing sound
 func initSoundNode():
-	soundNode.set_stream(achievementSound)
-	soundNode.volume_db = ACHIEVEMENT_SOUND_VOL
-	
+	soundNode.set_stream(globalSound)
+	soundNode.volume_db = globalSoundVolumeDb
 	add_child(soundNode)
 	pass
 	
@@ -77,7 +77,7 @@ func activateAchievement(achievementIndex):
 		achievementUiNotification.get_node("AnimationPlayer").play("popup")
 		
 		# Wait a few seconds
-		yield(achievementUiNotification.get_tree().create_timer(ACHIEVEMENT_SHOW_TIME), "timeout")
+		yield(achievementUiNotification.get_tree().create_timer(SHOW_TIME), "timeout")
 		achievementCount -= 1
 		
 		# Play hide animation
