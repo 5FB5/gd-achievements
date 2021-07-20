@@ -35,6 +35,10 @@ Also, you can change additional node's options from Inspector:
 
 ![node_example](https://imgur.com/kThTe6a.png)
 
+To call achievement, use "showAchievement" signal, that accepts index of your achievement
+
+![code](https://imgur.com/eLd0Sub.png)
+
 As a result you'll see something like this
 
 ![ingame_example](https://imgur.com/24MtHit.png)
