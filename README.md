@@ -19,7 +19,7 @@ Easiest way to get path is pressing right mouse button to you icon and press "co
 
 ![copy_path_example](https://imgur.com/kLXqxNx.png)
 
-I recommend to store all icons to "resources/icons" folder from folder with addon ("addons/gd_achievements/resources/icons")
+I recommend to store all icons to "resources/icons" folder from addon ("addons/gd_achievements/resources/icons")
 
 ![icon_folder_example](https://imgur.com/uVvWaSb.png)
 
