@@ -47,6 +47,13 @@ As a result you'll see something like this
 
 ![ingame_example](https://imgur.com/24MtHit.png)
 
+# Avaiable methods
+* getFieldName(achievement_index) - returns main name of achievement;
+* getFieldDescription(achievement_index) - returns description of achievement;
+* getFieldProgress(achievement_index) - returns a number of a progress to get this achievement (int);
+* getFieldIsSecret(achievement_index) - returns bool value of whether the achievement is secret;
+* getFieldIconPath(achievement_index) - returng path to achievement's icon as string
+* getFieldIsHave(achievement_index) - returns a bool value about whether the achievement was previously earned
 
 ## Also
 If you are developing the game and want to replay achievements, delete "achievements.json" in "GodotUserPath/<your_game>" folder
