@@ -89,6 +89,42 @@ func _ready():
 	connect("showAchievement", self, "activateAchievement")
 	pass
 	
+func getFieldName(index):
+	var name = m_achievements.keys()[index]
+	return name
+	pass
+	
+func getFieldDescription(index):
+	var desc = m_achievements.values()[index]['description']
+	return desc
+	pass
+	
+func getFieldProgress(index):
+	var progress = m_achievements.values()[index]['progress']
+	return(int(progress))
+	pass
+	
+func getFieldIsSecret(index):
+	var isSecret = m_achievements.values()[index]['is_secret']
+	if (int(isSecret) == 0):
+		return false
+	elif (int(isSecret) == 1):
+		return true
+	pass
+	
+func getFieldIconPath(index):
+	var path = m_achievements.values()[index]['icon_path']
+	return(str(path))
+	pass
+	
+func getFieldIsHave(index):
+	var isHave = m_achievements.values()[index]['is_have']
+	if (int(isHave) == 0):
+		return false
+	elif (int(isHave) == 1):
+		return true
+	pass	
+	
 func activateAchievement(achievementIndex):
 	if (achievementIndex > len(m_achievements.keys()) - 1):
 		print("AchievementSystem Error: Attempt to get an achievement on " + achievementIndex + 
