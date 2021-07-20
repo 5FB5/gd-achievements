@@ -3,7 +3,9 @@ Achievement system plugin for Godot 3.x.x Engine
 
 # How to install in your project?
 ## Copy from GitHub repository
-Initially, the plugin is located in the "addons" folder. If your project does not have this folder, you can copy the plugin along with this folder into the project. If you have, copy only "gd-achievements" folder to your current "addons" folder in your project
+Initially, the plugin is located in the "addons" folder. If your project does not have this folder, you can copy the plugin along with this folder into the project. If you have, copy only "gd-achievements" folder to your current "addons" folder in your project. 
+
+After that don't forget to enable it in "Project Settings -> Plugins".
 
 # How to add custom achievements?
 ## 1. Generate JSON via Python script;
