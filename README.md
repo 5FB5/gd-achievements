@@ -1,39 +1,47 @@
 # gd-achievements
-Simple achievement system template for Godot Engine ver. 3+ projects
+Achievement system plugin for Godot 3.x.x Engine
 
 # How to install in your project?
-By default you must take "achievements" folder and copy it to project's root folder. In Godot destination must be like "res://achievements/..."
+## Copy from GitHub repository
+Initially, the plugin is located in the "addons" folder. If your project does not have this folder, you can copy the plugin along with this folder into the project. If you have, copy only "gd-achievements" folder to your current "addons" folder in your project
 
-# How it works?
-* Generate/modify your JSON file via "achievements_generator.py" script. It accepts name of achievement, description, path to icons(by default I've created achievement/resources/icons folder and you can use it)
-![example1](https://i.imgur.com/fS0G9sa.png)
+# How to add custom achievements?
+## 1. Generate JSON via Python script;
+Open "achievements_generator.py". To make file, generator require to write main name of your achievement, short description and Godot's path to icon.
 
-* Place achievements.json that created by script to "achievements/data" folder (if you want to change file's destination, you must check and change paths in achievement_data.gd and achievement_manager.gd)
+![example1](https://imgur.com/sMG1FGZ.png)
 
-* Structure of JSON file included: main achievement's name, inside it we have description of achievement, *"is_secret"* field that means is your achievement is secret (use it how you want, for me I want to use it with GameJolt API), maximum progress value that you can use for comparison between current game's data and achievement's data, "icon_path" that stores path to icon in Godot's project. You can use the *"is_have"* field to check and store information about whether a player has already received a particular achievement. For example, when player completed task, game can check current state of achievement with field from file and rewrite *json* file, denoting that the player received it.
+Easiest way to get path is pressing right mouse button to you icon and press "copy path".
 
-![file_example](https://i.imgur.com/7hgEoWW.png)
+![copy_path_example](https://imgur.com/kLXqxNx.png)
 
-# Using it in your project
+I recommend to store all icons to "resources/icons" folder from folder with addon ("addons/gd_achievements/resources/icons")
 
-* Open your Godot project
+![icon_folder_example](https://imgur.com/uVvWaSb.png)
 
-* Place "ui_achievements_main.tscn" from "achievements/resources/game_ui" into scene you need.
+## 2. Place your new "achievements.json" to "addons/gd_achievements/resources/data" folder
+As you can see, the structure of JSON file is simple and you can use fields like you want.
 
-* To activate achievement UI notification window, just call " emit_signal("showAchievement", <array's index of achievement>) " from node.
-For example, I've spawned all 3 achievements from file that I generated
+![json_example](https://imgur.com/fSVKCKj.png)
 
-![example2](https://i.imgur.com/R5eTN0z.png)
+## 3. Open your Godot project, place "AchievementSystem" node to scene you want
+
+![node_add_example](https://imgur.com/yOdOthY.png)
+
+Also, you can change additional node's options from Inspector:
+* "Show time" - How much time achievement's notficaton will shown in seconds;
+* "Global Sound" - What sound will play for all achievements;
+* "Global Sound Volume".
+
+![node_example](https://imgur.com/kThTe6a.png)
 
 As a result you'll see something like this
 
-![example3](https://i.imgur.com/HKMcwmJ.png)
+![ingame_example](https://imgur.com/24MtHit.png)
 
-# Q/A
-## Q: I've added it in my project, but I can't use "showAchievement" command.
-**A:** Check that "ui_achievements_main.tscn" scene, that you add in your game level, have an "achievement_manager.gd" script and load it if it doesn't. Repeat it with "ui_achievements_notification.tscn" scene and add "achievement_data.gd" script.
 
-## Q: I have "ERROR: Cannot load source code from file 'res://../achievements/scripts/achievement_manager.gd'". How to fix it?
-**A:** Open "../achievement/resources/game_ui/ui_achievement_main.tscn" and add "achievement_manager.gd" in it.
+## Also
+If you are developing the game and want to replay achievements, delete "achievements.json" in "GodotUserPath/<your_game>" folder
+(check [data paths](https://docs.godotengine.org/ru/stable/tutorials/io/data_paths.html) for your OS) after each game started.
 
 # I'll accept all problems and suggestions that you write in the repository on GitHub on "Issues" section

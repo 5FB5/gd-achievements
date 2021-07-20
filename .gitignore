@@ -1,7 +1,11 @@
 gd_achievement_system/.import
 gd_achievement_system/export_presets.cfg
-gd_achievement_system/achievements/data/*
-gd_achievement_system/test.*
 
-achievements.json
 gd_achievement_system/default_bus_layout.tres
+gd_achievement_system/icon.png
+gd_achievement_system/icon.png.import
+gd_achievement_system/project.godot
+gd_achievement_system/test.gd
+gd_achievement_system/test.tscn
+gd_achievement_system/project.godot
+gd_achievement_system/default_env.tres
