@@ -19,7 +19,9 @@ export var globalSound = preload("res://addons/gd-achievements/resources/sounds/
 # 0 = original sound's volume
 export var globalSoundVolume = -20.0
 
-var m_achievements = {} # Main array with achievements
+onready var globalAchievements = get_node("/root/Global").achievements
+
+var m_achievements = {}
 var achievementCount = 0
 var achievementCurrentPosY = 0
 var achievementsDataScript = null
@@ -32,7 +34,7 @@ signal showAchievement(index)
 func _init():
 	achievementsDataScript = load(ACHIEVEMENT_DATA_SCRIPT_PATH).new()
 	# Get all achievement's data
-	m_achievements = achievementsDataScript.getAchievements()
+	#m_achievements = achievementsDataScript.getAchievements()
 	pass
 
 # Create audio node for playing sound
@@ -42,10 +44,22 @@ func initSoundNode():
 	add_child(soundNode)
 	pass
 
+func rewriteAchievementsDataToUserJson():
+	var userFileJson = File.new()
+	if (userFileJson.file_exists(ACHIEVEMENT_JSON_USER_PATH)):
+		userFileJson.open(ACHIEVEMENT_JSON_USER_PATH, File.WRITE)
+		userFileJson.store_string(to_json(globalAchievements))
+		userFileJson.close()
+		pass
+	else:
+		print("Achievement System Error: Can't open achievements data in userdata path. Maybe it doesn't exists")
+		pass
+	pass
+
 func updateReferenceJson(achievementsFromUserFileBuf):
-	if (m_achievements.hash() != achievementsFromUserFileBuf.hash()):
+	if (globalAchievements.hash() != achievementsFromUserFileBuf.hash()):
 			print("AchievementSystem: User file and reference file are different. Updating data...")
-			m_achievements = achievementsFromUserFileBuf
+			globalAchievements = achievementsFromUserFileBuf
 			print("AchievementSystem: Data updated!")
 			pass
 	pass
@@ -53,7 +67,7 @@ func updateReferenceJson(achievementsFromUserFileBuf):
 func updateUserJson():
 	var userFile = File.new()
 	userFile.open(ACHIEVEMENT_JSON_USER_PATH, File.WRITE)
-	userFile.store_string(to_json(m_achievements))
+	userFile.store_string(to_json(globalAchievements))
 	userFile.close()
 	pass
 
@@ -63,7 +77,7 @@ func checkFileJsonOnDevice():
 	if (not jsonUserFile.file_exists(ACHIEVEMENT_JSON_USER_PATH)):
 		print("AchievementSystem: 'achievements.json' not found on device. Creating...")
 		jsonUserFile.open(ACHIEVEMENT_JSON_USER_PATH, File.WRITE)
-		jsonUserFile.store_line(to_json(m_achievements))
+		jsonUserFile.store_line(to_json(globalAchievements))
 		jsonUserFile.close()
 		print("AchievementSystem: File created!")
 		pass
@@ -83,6 +97,7 @@ func _notification(what):
 	pass
 
 func _ready():
+	globalAchievements = achievementsDataScript.getAchievements()
 	initSoundNode()
 	checkFileJsonOnDevice()
 	# Bind main signal to function
@@ -90,22 +105,22 @@ func _ready():
 	pass
 	
 func getFieldName(index):
-	var name = m_achievements.keys()[index]
+	var name = globalAchievements.keys()[index]
 	return name
 	pass
 	
 func getFieldDescription(index):
-	var desc = m_achievements.values()[index]['description']
+	var desc = globalAchievements.values()[index]['description']
 	return desc
 	pass
 	
 func getFieldProgress(index):
-	var progress = m_achievements.values()[index]['progress']
+	var progress = globalAchievements.values()[index]['progress']
 	return(int(progress))
 	pass
 	
 func getFieldIsSecret(index):
-	var isSecret = m_achievements.values()[index]['is_secret']
+	var isSecret = globalAchievements.values()[index]['is_secret']
 	if (int(isSecret) == 0):
 		return false
 	elif (int(isSecret) == 1):
@@ -113,12 +128,12 @@ func getFieldIsSecret(index):
 	pass
 	
 func getFieldIconPath(index):
-	var path = m_achievements.values()[index]['icon_path']
+	var path = globalAchievements.values()[index]['icon_path']
 	return(str(path))
 	pass
 	
 func getFieldIsHave(index):
-	var isHave = m_achievements.values()[index]['is_have']
+	var isHave = globalAchievements.values()[index]['is_have']
 	if (int(isHave) == 0):
 		return false
 	elif (int(isHave) == 1):
@@ -126,13 +141,15 @@ func getFieldIsHave(index):
 	pass	
 	
 func activateAchievement(achievementIndex):
-	if (achievementIndex > len(m_achievements.keys()) - 1):
+	if (achievementIndex > len(globalAchievements.keys()) - 1):
 		print("AchievementSystem Error: Attempt to get an achievement on " + achievementIndex + 
-			" index that is out of range (" + (len(m_achievements.keys()) - 1) + ")")
+			" index that is out of range (" + (len(globalAchievements.keys()) - 1) + ")")
 		return
 
-	if ((achievementCount >= 0) and (achievementCount <= len(m_achievements.keys()) - 1) and (m_achievements.values()[achievementIndex]["is_have"] == 0)):
-		m_achievements.values()[achievementIndex]["is_have"] = 1
+	if ((achievementCount >= 0) and (achievementCount <= len(globalAchievements.keys()) - 1) and (globalAchievements.values()[achievementIndex]["is_have"] == 0)):
+		globalAchievements.values()[achievementIndex]["is_have"] = 1
+		rewriteAchievementsDataToUserJson()
+		
 		# Preload instance of scene
 		achievementUiNotificationInstance = preload(ACHIEVEMENT_UI_NOTIFICATION_PATH).instance()
 		# Get ID for a new instance
@@ -151,11 +168,11 @@ func activateAchievement(achievementIndex):
 			pass
 		
 		# Set name
-		achievementUiNotification.get_node("achievementPanel/achievementDescription/description").text = m_achievements.keys()[int(achievementIndex)]
+		achievementUiNotification.get_node("achievementPanel/achievementDescription/description").text = globalAchievements.keys()[int(achievementIndex)]
 		
 		# Set icon path
 		achievementUiNotification.get_node("achievementPanel/achievementIcon/TextureRect").texture = load(
-			m_achievements.values()[int(achievementIndex)]['icon_path']
+			globalAchievements.values()[int(achievementIndex)]['icon_path']
 			)
 		
 		# Play sound

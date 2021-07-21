@@ -28,7 +28,7 @@ As you can see, the structure of JSON file is simple and you can use fields like
 
 ![json_example](https://imgur.com/fSVKCKj.png)
 
-## 3. Open your Godot project, place "AchievementSystem" node to scene you want
+## 3. Open your Godot project, place "AchievementSystem" node to scene you want, don't forget to add "addons\gd-achievements\scripts\global.gd" file as singletone
 
 ![node_add_example](https://imgur.com/yOdOthY.png)
 
