@@ -86,7 +86,13 @@ func checkFileJsonOnDevice():
 		var achievementsFromUserFileBuf = parse_json(jsonUserFile.get_as_text())
 		jsonUserFile.close()
 		
-		updateReferenceJson(achievementsFromUserFileBuf)
+		if (achievementsFromUserFileBuf != null):
+			updateReferenceJson(achievementsFromUserFileBuf)
+			pass
+		else:
+			print("Achievement System: User's file buffer is NULL. Delete 'achievements.json' from Godot's user data folder.")
+			return
+			pass
 		pass
 	pass
 
@@ -139,7 +145,13 @@ func getFieldIsHave(index):
 	elif (int(isHave) == 1):
 		return true
 	pass	
-	
+
+func resetAchievementNotifications():
+	for i in (len(globalAchievements.keys())):
+		globalAchievements.values()[i]["is_have"] = 0
+		pass
+	pass
+
 func activateAchievement(achievementIndex):
 	if (achievementIndex > len(globalAchievements.keys()) - 1):
 		print("AchievementSystem Error: Attempt to get an achievement on " + achievementIndex + 
