@@ -54,11 +54,8 @@ As a result you'll see something like this
 * getFieldDescription(achievement_index) - returns description of achievement;
 * getFieldProgress(achievement_index) - returns a number of a progress to get this achievement (int);
 * getFieldIsSecret(achievement_index) - returns bool value of whether the achievement is secret;
-* getFieldIconPath(achievement_index) - returng path to achievement's icon as string
-* getFieldIsHave(achievement_index) - returns a bool value about whether the achievement was previously earned
-
-## Also
-If you are developing the game and want to replay achievements, delete "achievements.json" in "GodotUserPath/<your_game>" folder
-(check [data paths](https://docs.godotengine.org/ru/stable/tutorials/io/data_paths.html) for your OS) after each game started.
+* getFieldIconPath(achievement_index) - returng path to achievement's icon as string;
+* getFieldIsHave(achievement_index) - returns a bool value about whether the achievement was previously earned;
+* resetAchievementNotifications() - sets "is_have" field to 0 for all achievements, that can help for it's multiple testing.
 
 # I'll accept all problems and suggestions that you write in the repository on GitHub on "Issues" section
