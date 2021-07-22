@@ -58,4 +58,9 @@ As a result you'll see something like this
 * getFieldIsHave(achievement_index) - returns a bool value about whether the achievement was previously earned;
 * resetAchievementNotifications() - sets "is_have" field to 0 for all achievements, that can help for it's multiple testing.
 
+# Q/A
+## I've installed this plugin correctly, but I can't call achievement needed to me. I want to call the "number1"-th achievement but it call "number2"-th achievement
+Keep in mind, that achievements data in game are different that data from original file you created. For example, if in your generated file achievement you need is fifth,
+in game this achievement can be a second and e.t.c. To call achievement correctly, first of all you should print all achievements names via "getFieldName" in loop to see
+what order your achievements are
 # I'll accept all problems and suggestions that you write in the repository on GitHub on "Issues" section
