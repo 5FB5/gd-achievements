@@ -21,7 +21,6 @@ export var globalSoundVolume = -20.0
 
 onready var globalAchievements = get_node("/root/Global").achievements
 
-var m_achievements = {}
 var achievementCount = 0
 var achievementCurrentPosY = 0
 var achievementsDataScript = null
@@ -33,8 +32,6 @@ signal showAchievement(index)
 
 func _init():
 	achievementsDataScript = load(ACHIEVEMENT_DATA_SCRIPT_PATH).new()
-	# Get all achievement's data
-	#m_achievements = achievementsDataScript.getAchievements()
 	pass
 
 # Create audio node for playing sound
@@ -52,8 +49,8 @@ func rewriteAchievementsDataToUserJson():
 		userFileJson.close()
 		pass
 	else:
-		print("Achievement System Error: Can't open achievements data in userdata path. Maybe it doesn't exists")
-		pass
+		print("Achievement System Error: Can't open achievements data. It doesn't exists on device")
+		return
 	pass
 
 func updateReferenceJson(achievementsFromUserFileBuf):
@@ -65,15 +62,17 @@ func updateReferenceJson(achievementsFromUserFileBuf):
 	pass
 
 func updateUserJson():
+	print("AchievementSystem: Updating data to JSON on device...")
 	var userFile = File.new()
 	userFile.open(ACHIEVEMENT_JSON_USER_PATH, File.WRITE)
 	userFile.store_string(to_json(globalAchievements))
 	userFile.close()
+	print("AchievementSystem: Updating completed!")
 	pass
 
 func checkFileJsonOnDevice():
+	print("AchievementSystem: Start checking 'achievements.json' file on device...")
 	var jsonUserFile = File.new()
-	
 	if (not jsonUserFile.file_exists(ACHIEVEMENT_JSON_USER_PATH)):
 		print("AchievementSystem: 'achievements.json' not found on device. Creating...")
 		jsonUserFile.open(ACHIEVEMENT_JSON_USER_PATH, File.WRITE)
@@ -82,7 +81,9 @@ func checkFileJsonOnDevice():
 		print("AchievementSystem: File created!")
 		pass
 	else:
+		print("AchievementSystem: File is exists!")
 		jsonUserFile.open(ACHIEVEMENT_JSON_USER_PATH, File.READ)
+		print("AchievementSystem: Getting data from file...")
 		var achievementsFromUserFileBuf = parse_json(jsonUserFile.get_as_text())
 		jsonUserFile.close()
 		
@@ -90,9 +91,8 @@ func checkFileJsonOnDevice():
 			updateReferenceJson(achievementsFromUserFileBuf)
 			pass
 		else:
-			print("Achievement System: User's file buffer is NULL. Delete 'achievements.json' from Godot's user data folder.")
+			print("AchievementSystem Error: achievementsFromUserFileBuf is NULL")
 			return
-			pass
 		pass
 	pass
 
@@ -106,50 +106,46 @@ func _ready():
 	globalAchievements = achievementsDataScript.getAchievements()
 	initSoundNode()
 	checkFileJsonOnDevice()
-	# Bind main signal to function
 	connect("showAchievement", self, "activateAchievement")
 	pass
 	
 func getFieldName(index):
-	var name = globalAchievements.keys()[index]
-	return name
+	return(str(globalAchievements.keys()[index]))
 	pass
 	
 func getFieldDescription(index):
-	var desc = globalAchievements.values()[index]['description']
-	return desc
+	return(str(globalAchievements.values()[index]['description']))
 	pass
 	
 func getFieldProgress(index):
-	var progress = globalAchievements.values()[index]['progress']
-	return(int(progress))
+	return(int(globalAchievements.values()[index]['progress']))
 	pass
 	
 func getFieldIsSecret(index):
-	var isSecret = globalAchievements.values()[index]['is_secret']
-	if (int(isSecret) == 0):
+	var isSecret = int(globalAchievements.values()[index]['is_secret'])
+	if (isSecret == 0):
 		return false
-	elif (int(isSecret) == 1):
+	elif (isSecret == 1):
 		return true
 	pass
 	
 func getFieldIconPath(index):
-	var path = globalAchievements.values()[index]['icon_path']
-	return(str(path))
+	return(str(globalAchievements.values()[index]['icon_path']))
 	pass
 	
 func getFieldIsHave(index):
-	var isHave = globalAchievements.values()[index]['is_have']
-	if (int(isHave) == 0):
+	var isHave = int(globalAchievements.values()[index]['is_have'])
+	if (isHave == 0):
 		return false
-	elif (int(isHave) == 1):
+	elif (isHave == 1):
 		return true
 	pass	
 
 func resetAchievementNotifications():
-	for i in (len(globalAchievements.keys())):
+	for i in range((len(globalAchievements.keys()))):
 		globalAchievements.values()[i]["is_have"] = 0
 		pass
+	print("AchievementSystem: resetAchievementsNotifications()")
 	pass
 
 func activateAchievement(achievementIndex):
@@ -159,6 +155,7 @@ func activateAchievement(achievementIndex):
 		return
 
 	if ((achievementCount >= 0) and (achievementCount <= len(globalAchievements.keys()) - 1) and (globalAchievements.values()[achievementIndex]["is_have"] == 0)):
+		print("AchievementSystem: Show achievement '" + str(globalAchievements.keys()[achievementIndex]) + "', index = " + str(achievementIndex))
 		globalAchievements.values()[achievementIndex]["is_have"] = 1
 		rewriteAchievementsDataToUserJson()
 		
