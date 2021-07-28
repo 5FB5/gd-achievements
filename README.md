@@ -23,6 +23,8 @@ Easiest way to get path is pressing right mouse button to you icon and press "co
 
 I recommend to store all icons to "resources/icons" folder from addon ("addons/gd_achievements/resources/icons")
 
+Icon size recommended: 150x150px
+
 ![icon_folder_example](https://imgur.com/uVvWaSb.png)
 
 ## 2. Place your new "achievements.json" to "addons/gd_achievements/resources/data" folder
