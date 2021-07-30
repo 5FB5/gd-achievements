@@ -51,7 +51,7 @@ As a result you'll see something like this
 
 ![ingame_example](https://imgur.com/24MtHit.png)
 
-# Avaiable methods
+# Available methods
 * getFieldName(achievement_index) - returns main name of achievement;
 * getFieldDescription(achievement_index) - returns description of achievement;
 * getFieldProgress(achievement_index) - returns a number of a progress to get this achievement (int);
