@@ -100,36 +100,56 @@ func _notification(what):
 	pass
 
 func getFieldName(index):
-	return(str(globalAchievements.keys()[index]))
+	if (index >= 0 and index <= len(globalAchievements.keys())):
+		return(str(globalAchievements.keys()[index]))
 	pass
 	
 func getFieldDescription(index):
-	return(str(globalAchievements.values()[index]['description']))
+	if (index >= 0 and index <= len(globalAchievements.keys())):
+		return(str(globalAchievements.values()[index]['description']))
 	pass
 	
 func getFieldProgress(index):
-	return(int(globalAchievements.values()[index]['progress']))
+	if (index >= 0 and index <= len(globalAchievements.keys())):
+		return(int(globalAchievements.values()[index]['progress']))
 	pass
 	
 func getFieldIsSecret(index):
-	var isSecret = int(globalAchievements.values()[index]['is_secret'])
-	if (isSecret == 0):
-		return false
-	elif (isSecret == 1):
-		return true
+	if (index >= 0 and index <= len(globalAchievements.keys())):
+		var isSecret = int(globalAchievements.values()[index]['is_secret'])
+		if (isSecret == 0):
+			return false
+		elif (isSecret == 1):
+			return true
 	pass
 	
+	
 func getFieldIconPath(index):
-	return(str(globalAchievements.values()[index]['icon_path']))
+	if (index >= 0 and index <= len(globalAchievements.keys())):
+		return(str(globalAchievements.values()[index]['icon_path']))
 	pass
 	
 func getFieldIsHave(index):
-	var isHave = int(globalAchievements.values()[index]['is_have'])
-	if (isHave == 0):
-		return false
-	elif (isHave == 1):
-		return true
+	if (index >= 0 and index <= len(globalAchievements.keys())):
+		var isHave = int(globalAchievements.values()[index]['is_have'])
+		if (isHave == 0):
+			return false
+		elif (isHave == 1):
+			return true
 	pass	
+
+func getAchievementsQuantity():
+	var quantity = int(len(globalAchievements.keys()))
+	return(quantity)
+
+func getAchievementsAllNames():
+	var names = []
+	for i in len(globalAchievements.keys()):
+		names.append(str(globalAchievements.keys()[i]))
+		pass
+	print ("AchievementSystem: All achievements names")
+	print("	", names)
+	pass
 
 func resetAchievementNotifications():
 	for i in range((len(globalAchievements.keys()))):
