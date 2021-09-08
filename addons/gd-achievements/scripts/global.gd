@@ -1,3 +1,5 @@
+tool
+
 extends Node
 
-var achievements = {}
+onready var achievements = {}
