@@ -59,7 +59,7 @@ As a result you'll see something like this
 * getFieldIconPath(achievement_index) - returng path to achievement's icon as string;
 * getFieldIsHave(achievement_index) - returns a bool value about whether the achievement was previously earned;
 * getAchievementsQuantity() - returns int, quantity of achievements from data file;
-* getAchievementsAllNames() - returns array of string with all achievements names;
+* getAchievementsAllNames() - prints all achievements with index;
 * resetAchievementNotifications() - sets "is_have" field to 0 for all achievements, that can help for debugging.
 
 # Q/A
