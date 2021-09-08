@@ -144,11 +144,12 @@ func getAchievementsQuantity():
 
 func getAchievementsAllNames():
 	var names = []
-	for i in len(globalAchievements.keys()):
-		names.append(str(globalAchievements.keys()[i]))
-		pass
 	print ("AchievementSystem: All achievements names")
-	print("	", names)
+	
+	for i in len(globalAchievements.keys()):
+		print("	", str(globalAchievements.keys()[i]), ", JSON index - ", i) # print a name and index in JSON
+		pass
+	
 	pass
 
 func resetAchievementNotifications():
