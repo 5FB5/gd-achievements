@@ -9,7 +9,7 @@ Initially, the plugin is located in the "addons" folder. If your project does no
 
 After that don't forget to enable it in "Project Settings -> Plugins"
 
-And add "addons\gd-achievements\scripts\global.gd" file as singletone
+<b>And don't forget to add "addons\gd-achievements\scripts\global.gd" file as singletone</b>
 
 # How to add custom achievements?
 ## 1. Generate JSON via Python script;
