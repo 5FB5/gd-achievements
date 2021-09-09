@@ -68,4 +68,7 @@ Keep in mind, that achievements data in game are different that data from origin
 in game this achievement can be a second and e.t.c. To call achievement correctly, first of all you should call getAchievementsAllNames() to see 
 what order your achievements are
 
+## I have an error "Node not found: root/Global..."!
+Check that "addons/gd-achievements/scripts/global.gd" file activated as singletone (check <b>How to install in your project?</b>)
+
 # I'll accept all problems and suggestions that you write in the repository on GitHub on "Issues" section
