@@ -11,6 +11,8 @@ After that don't forget to enable it in "Project Settings -> Plugins"
 
 <b>And don't forget to add "addons\gd-achievements\scripts\global.gd" file as singletone</b>
 
+(Project -> Project Settings -> AutoLoad -> <path_to_global.gd> -> Add)
+
 # How to add custom achievements?
 ## 1. Generate JSON via Python script;
 Open "achievements_generator.py". To make file, generator require to write main name of your achievement, short description and Godot's path to icon.
