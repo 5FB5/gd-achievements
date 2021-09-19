@@ -13,6 +13,11 @@ After that don't forget to enable it in "Project Settings -> Plugins"
 
 (Project -> Project Settings -> AutoLoad -> <path_to_global.gd> -> Add)
 
+## Download from Godot Asset Library
+Find this plugin and install it like you want (from editor directly or from website)
+
+https://godotengine.org/asset-library/asset/1004
+
 # How to add custom achievements?
 ## 1. Generate JSON via Python script;
 Open "achievements_generator.py". To make file, generator require to write main name of your achievement, short description and Godot's path to icon.
@@ -25,7 +30,7 @@ Easiest way to get path is pressing right mouse button to you icon and press "co
 
 I recommend to store all icons to "resources/icons" folder from addon ("addons/gd_achievements/resources/icons")
 
-Icon size recommended: 150x150px
+Icon size must be: 150x150px
 
 ![icon_folder_example](https://imgur.com/uVvWaSb.png)
 
@@ -54,15 +59,15 @@ As a result you'll see something like this
 ![ingame_example](https://imgur.com/24MtHit.png)
 
 # Available methods
-* getFieldName(achievement_index) - returns main name of achievement;
-* getFieldDescription(achievement_index) - returns description of achievement;
-* getFieldProgress(achievement_index) - returns a number of a progress to get this achievement (int);
-* getFieldIsSecret(achievement_index) - returns bool value of whether the achievement is secret;
-* getFieldIconPath(achievement_index) - returng path to achievement's icon as string;
-* getFieldIsHave(achievement_index) - returns a bool value about whether the achievement was previously earned;
+* getFieldName(achievement_index) - returns string, main name of achievement;
+* getFieldDescription(achievement_index) - returns string, description of achievement;
+* getFieldProgress(achievement_index) - returns int, number of a progress to get this achievement (int);
+* getFieldIsSecret(achievement_index) - returns bool value that whether the achievement is secret;
+* getFieldIconPath(achievement_index) - returns string, path to achievement's icon as string;
+* getFieldIsHave(achievement_index) - returns bool value that whether the achievement was previously earned;
 * getAchievementsQuantity() - returns int, quantity of achievements from data file;
 * getAchievementsAllNames() - prints all achievements with index;
-* resetAchievementNotifications() - sets "is_have" field to 0 for all achievements, that can help for debugging.
+* resetAchievementNotifications() - debug function, resets all received achievements by setting "is_have" field to 0 for all achievements.
 
 # Q/A
 ## I've installed this plugin correctly, but I can't call achievement needed to me. I want to call the "number1"-th achievement but it calls "number2"-th achievement
