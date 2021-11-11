@@ -1,0 +1,18 @@
+{
+  "my_progress_achievement": {
+    "name": "My progress achievement",
+    "description": "Look at my progress achievement!",
+    "is_secret": false,
+    "goal": 5,
+    "current_progress": 0,
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
+    "achieved": false
+  },
+  "my_instant_achievement": {
+    "name": "My instant achievement",
+    "description": "Look at my instant achievement!",
+    "is_secret": false,
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
+    "achieved": false
+  }
+}

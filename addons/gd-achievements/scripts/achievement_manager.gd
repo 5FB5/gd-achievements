@@ -1,229 +1,139 @@
-tool
+extends Node
 
-extends Control
-
-const ACHIEVEMENT_DATA_SCRIPT_PATH = "res://addons/gd-achievements/scripts/achievement_data.gd"
-const ACHIEVEMENT_UI_NOTIFICATION_PATH = "res://addons/gd-achievements/resources/game_ui/achievements_notification.tscn"
 const ACHIEVEMENT_JSON_USER_PATH = "user://achievements.json"
-const ACHIEVEMENT_JSON_REFERENCE_PATH = "res://addons/gd-achievements/resources/data/achievemenets.json"
+const ACHIEVEMENT_JSON_REFERENCE_PATH = "res://gd-achievements/achievements.json"
 
-# How long achievement will be shown (seconds)
-export var SHOW_TIME = 4.7
-const SHOW_END_TIME = 1.5
-
-# Global sound for all achievements
-export var globalSound = preload("res://addons/gd-achievements/resources/sounds/achievement_earned.wav")
-
-# -200 = mute, 
-# -20 = default volume for notification ('cause basic sound is too loud), 
-# 0 = original sound's volume
-export var globalSoundVolume = -20.0
-
-onready var globalAchievements = get_node("/root/Global").achievements
-
+var achievements = {}
 var achievementCount = 0
-var achievementCurrentPosY = 0
-var achievementsDataScript = null
-var achievementUiNotificationInstance = null
-var soundNode = AudioStreamPlayer.new()
 
-# Main call signal that accepts index of an achievement from array
-signal showAchievement(index)
+signal achievement_unlocked(achievement)
 
-# Create audio node for playing sound
-func initSoundNode():
-	soundNode.set_stream(globalSound)
-	soundNode.set_volume_db(globalSoundVolume)
-	add_child(soundNode)
-	pass
-
-func rewriteAchievementsDataToUserJson():
-	var userFileJson = File.new()
-	if (userFileJson.file_exists(ACHIEVEMENT_JSON_USER_PATH)):
-		userFileJson.open(ACHIEVEMENT_JSON_USER_PATH, File.WRITE)
-		userFileJson.store_string(to_json(globalAchievements))
-		userFileJson.close()
-		pass
-	else:
-		print("Achievement System Error: Can't open achievements data. It doesn't exists on device")
-		return
-	pass
-
-func updateReferenceJson(achievementsFromUserFileBuf):
-	if (globalAchievements.hash() != achievementsFromUserFileBuf.hash()):
-			print("AchievementSystem: User's file and reference file are different. Updating data...")
-			globalAchievements = achievementsFromUserFileBuf
-			print("AchievementSystem: Data updated!")
-			pass
-	pass
-
-func updateJsonOnDeviceBeforeClosing():
-	var userFile = File.new()
-	if (userFile.file_exists(ACHIEVEMENT_JSON_USER_PATH) and globalAchievements != null):
-		userFile.open(ACHIEVEMENT_JSON_USER_PATH, File.WRITE)
-		userFile.store_string(to_json(globalAchievements))
-		userFile.close()
-	print("AchievementSystem: updateJsonOnDeviceBeforeClosing()")
-	pass
-
-func checkJsonOnDevice():
-	print("AchievementSystem: Checking 'achievements.json' file on device...")
-	var jsonUserFile = File.new()
-	if (not jsonUserFile.file_exists(ACHIEVEMENT_JSON_USER_PATH)):
-		print("AchievementSystem: 'achievements.json' not found on device. Creating...")
-		jsonUserFile.open(ACHIEVEMENT_JSON_USER_PATH, File.WRITE)
-		jsonUserFile.store_line(to_json(globalAchievements))
-		jsonUserFile.close()
-		print("AchievementSystem: File created!")
-		pass
-	else:
-		print("AchievementSystem:'achievements.json' is exists on device!")
-		jsonUserFile.open(ACHIEVEMENT_JSON_USER_PATH, File.READ)
-		
-		print("AchievementSystem: Getting data from file...")
-		var achievementsFromUserFileBuf = parse_json(jsonUserFile.get_as_text())
-		jsonUserFile.close()
-		
-		if (achievementsFromUserFileBuf != null):
-			updateReferenceJson(achievementsFromUserFileBuf)
-			pass
-		else:
-			print("AchievementSystem Error: achievementsFromUserFileBuf is NULL")
-			return
-		pass
-	pass
-
-func _notification(what):
-	if (what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST):
-		updateJsonOnDeviceBeforeClosing()
-		pass
-	pass
-
-func getFieldName(index):
-	if (index >= 0 and index <= len(globalAchievements.keys())):
-		return(str(globalAchievements.keys()[index]))
-	pass
-	
-func getFieldDescription(index):
-	if (index >= 0 and index <= len(globalAchievements.keys())):
-		return(str(globalAchievements.values()[index]['description']))
-	pass
-	
-func getFieldProgress(index):
-	if (index >= 0 and index <= len(globalAchievements.keys())):
-		return(int(globalAchievements.values()[index]['progress']))
-	pass
-	
-func getFieldIsSecret(index):
-	if (index >= 0 and index <= len(globalAchievements.keys())):
-		var isSecret = int(globalAchievements.values()[index]['is_secret'])
-		if (isSecret == 0):
-			return false
-		elif (isSecret == 1):
-			return true
-	pass
-	
-	
-func getFieldIconPath(index):
-	if (index >= 0 and index <= len(globalAchievements.keys())):
-		return(str(globalAchievements.values()[index]['icon_path']))
-	pass
-	
-func getFieldIsHave(index):
-	if (index >= 0 and index <= len(globalAchievements.keys())):
-		var isHave = int(globalAchievements.values()[index]['is_have'])
-		if (isHave == 0):
-			return false
-		elif (isHave == 1):
-			return true
-	pass	
-
-func getAchievementsQuantity():
-	var quantity = int(len(globalAchievements.keys()))
-	return(quantity)
-
-func getAchievementsAllNames():
-	var names = []
-	print ("AchievementSystem: All achievements names")
-	
-	for i in len(globalAchievements.keys()):
-		print("	", str(globalAchievements.keys()[i]), ", JSON index - ", i) # print a name and index in JSON
-		pass
-	
-	pass
-
-func resetAchievementNotifications():
-	for i in range((len(globalAchievements.keys()))):
-		globalAchievements.values()[i]["is_have"] = 0
-		pass
-	rewriteAchievementsDataToUserJson()
-	print("AchievementSystem: resetAchievementsNotifications()")
-	pass
 
 func _ready():
-	achievementsDataScript = load(ACHIEVEMENT_DATA_SCRIPT_PATH).new()
-	globalAchievements = achievementsDataScript.getAchievements()
-	initSoundNode()
-	checkJsonOnDevice()
-	connect("showAchievement", self, "activateAchievement")
-	pass
-	
+	achievements = read_achievements_from_file()
+	check_json_on_device()
 
-func createAchievementPanel(achievementIndex):
-	# Preload instance of scene
-	achievementUiNotificationInstance = preload(ACHIEVEMENT_UI_NOTIFICATION_PATH).instance()
-	# Get ID for a new instance
-	var achievementUiNotificationId = achievementUiNotificationInstance.get_instance_id()
-	# Create instance with unique ID for independent working with its own nodes
-	var achievementUiNotification = instance_from_id(achievementUiNotificationId)
-	add_child(achievementUiNotification)
-		
-	# Increase count of UI instances for correct position
-	achievementCount += 1
 
-	# Change position of current instance's animation if it more than 1 notification window
-	if (achievementCount > 1):
-		achievementUiNotification.rect_position.y = achievementCurrentPosY + 130
-		achievementCurrentPosY = achievementUiNotification.rect_position.y
-		pass
-		
-	# Set name
-	achievementUiNotification.get_node("achievementPanel/achievementDescription/description").text = globalAchievements.keys()[int(achievementIndex)]
-		
-	# Set icon path
-	achievementUiNotification.get_node("achievementPanel/achievementIcon/TextureRect").texture = load(
-		globalAchievements.values()[int(achievementIndex)]['icon_path']
-		)
-	# Play sound
-	soundNode.play()
-		
-	# Play animation
-	achievementUiNotification.get_node("AnimationPlayer").play("popup")
-		
-	# Wait a few seconds
-	yield(achievementUiNotification.get_tree().create_timer(SHOW_TIME), "timeout")
-	achievementCount -= 1
-		
-	# Play hide animation
-	achievementUiNotification.get_node("AnimationPlayer").play("hide")
-		
-	# Delete node
-	yield(get_tree().create_timer(SHOW_END_TIME), "timeout")
-	achievementUiNotification.queue_free()	
-	pass
+func progress_achievement(key, progress):
+	print_debug("AchievementSystem: progress achievement(" + key + ", " + progress + ")")
+	achievements[key]["current_progress"] = min(
+		progress + achievements[key]["current_progress"], achievements[key]["goal"]
+	)
+	if achievements[key]["current_progress"] >= achievements[key]["goal"]:
+		activate_achievement(key)
 
-func activateAchievement(achievementIndex):
-	if (achievementIndex > (len(globalAchievements.keys()) - 1) or achievementIndex < 0):
-		print("AchievementSystem Error: Attempt to get an achievement on " + achievementIndex + 
-			" index that is out of range (" + (len(globalAchievements.keys()) - 1) + ")")
+
+func unlock_achievement(key):
+	print_debug("AchievementSystem: unlock_achievement(" + key + ")")
+	activate_achievement(key)
+
+
+func get_achievement(key):
+	return achievements[key]
+
+func get_all_achievements():
+	return achievements
+
+func read_achievements_from_file():
+	var file = File.new()
+	file.open(ACHIEVEMENT_JSON_REFERENCE_PATH, File.READ)
+	var data = parse_json(file.get_as_text())
+	for key in data.keys():
+		data[key]["key"] = key
+	file.close()
+
+	return data
+
+func parse_to_json(original_data):
+	var data = original_data
+	for key in data.keys():
+		data[key].erase("key") # do not include the "key" property in the json
+	return to_json(data)
+
+func parse_from_file(file):
+	var data = parse_json(file.get_as_text())
+	for key in data.keys():
+		data[key]["key"] = key # add the "key" property to the final dict
+	return data
+
+func reset_achievements():
+	for key in achievements:
+		achievements[key]["achieved"] = false
+	rewrite_achievements_data_to_user_json()
+	print_debug("AchievementSystem: reset_achievements()")
+
+
+func rewrite_achievements_data_to_user_json():
+	var userFileJson = File.new()
+	if userFileJson.file_exists(ACHIEVEMENT_JSON_USER_PATH):
+		userFileJson.open(ACHIEVEMENT_JSON_USER_PATH, File.WRITE)
+		userFileJson.store_string(parse_to_json(achievements))
+		userFileJson.close()
+	else:
+		print_debug("Achievement System Error: Can't open achievements data. It doesn't exists on device")
 		return
-	
-	var currentAchievementIsHaveField = int(globalAchievements.values()[achievementIndex]["is_have"])
 
-	if ((achievementCount >= 0) and (achievementCount <= len(globalAchievements.keys()) - 1) and currentAchievementIsHaveField == 0):
-		print("AchievementSystem: Show achievement '" + str(globalAchievements.keys()[achievementIndex]) + "', index = " + str(achievementIndex))
-		globalAchievements.values()[achievementIndex]["is_have"] = 1
-		rewriteAchievementsDataToUserJson()
-		
-		createAchievementPanel(achievementIndex)		
-	pass
+
+func update_reference_json(achievements_from_user_file_buf):
+	if not achievements or achievements.hash() != achievements_from_user_file_buf.hash():
+		print_debug("AchievementSystem: User's file and reference file are different. Updating data...")
+		achievements = achievements_from_user_file_buf
+		print_debug("AchievementSystem: Data updated!")
+
+
+func update_json_on_device_before_closing():
+	var userFile = File.new()
+	if userFile.file_exists(ACHIEVEMENT_JSON_USER_PATH) and achievements != null:
+		userFile.open(ACHIEVEMENT_JSON_USER_PATH, File.WRITE)
+		userFile.store_string(parse_to_json(achievements))
+		userFile.close()
+	print_debug("AchievementSystem: update_json_on_device_before_closing()")
+
+
+func check_json_on_device():
+	print_debug("AchievementSystem: Checking 'achievements.json' file on device...")
+	var json_user_file = File.new()
+	if not json_user_file.file_exists(ACHIEVEMENT_JSON_USER_PATH):
+		print_debug("AchievementSystem: 'achievements.json' not found on device. Creating...")
+		json_user_file.open(ACHIEVEMENT_JSON_USER_PATH, File.WRITE)
+		json_user_file.store_line(parse_to_json(achievements))
+		json_user_file.close()
+		print_debug("AchievementSystem: File created!")
+	else:
+		print_debug("AchievementSystem:'achievements.json' is exists on device!")
+		json_user_file.open(ACHIEVEMENT_JSON_USER_PATH, File.READ)
+
+		print_debug("AchievementSystem: Getting data from file...")
+		var achievements_from_user_file_buf = parse_from_file(json_user_file)
+		json_user_file.close()
+
+		if achievements_from_user_file_buf != null:
+			update_reference_json(achievements_from_user_file_buf)
+		else:
+			print_debug("AchievementSystem Error: achievements_from_user_file_buf is NULL")
+			return
+
+
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		update_json_on_device_before_closing()
+
+
+func activate_achievement(key):
+	if not achievements.has(key):
+		print_debug(
+			(
+				"AchievementSystem Error: Attempt to get an achievement on "
+				+ key
+				+ ", key doesn't exist."
+			)
+		)
+		return
+
+	var currentAchievement = achievements[key]
+
+	if currentAchievement["achieved"] == false:
+		achievements[key]["achieved"] = true
+		rewrite_achievements_data_to_user_json()
+
+		emit_signal("achievement_unlocked", currentAchievement)

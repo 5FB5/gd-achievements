@@ -1,0 +1,1 @@
+{"my_achievement": {"name": "My achievement", "description": "This is my first achievement", "is_secret": 0, "goal": 5, "current_progress": 0, "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png", "achieved": false}}

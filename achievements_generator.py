@@ -65,34 +65,40 @@ def createNewFile():
     # Set bContinue variable as loop flag
     bContinue = 'y'
     while (bContinue == 'y'):
+        # Enter key of achievement
+        achievementKey = input("\nAchievement's key (You will have to use this from your code, pick a code friendly key like 'my_achievement'): ")
+        dataSet[achievementKey] = {}
+
         # Enter name of achievement
         achievementName = input("\nAchievement's name: ")    
-        dataSet[achievementName] = {}
+        dataSet[achievementKey]['name'] = achievementName
 
         # Enter achievement's description
         achievementDesc = input("Achievement's description: ")
-        dataSet[achievementName]['description'] = achievementDesc
+        dataSet[achievementKey]['description'] = achievementDesc
 
         isASecretAchievement = input("Is it a secret achievement? \ny/n: ")
-        dataSet[achievementName]['is_secret'] = 1 if isASecretAchievement == 'y' else 0
+        dataSet[achievementKey]['is_secret'] = 1 if isASecretAchievement == 'y' else 0
 
-        # Add achievement's progress if you need
-        isHaveProgress = input("Is it have a progress? \ny/n: ")
-        achievementProgressValue = input("\nEnter maximum value of a progress: ") if isHaveProgress == 'y' else 0
-        dataSet[achievementName]['progress'] = int(achievementProgressValue)
+        # Add achievement's goal if you need
+        achievementProgress = input("Does it have progress? \ny/n: ")
+        if (achievementProgress == 'y'):
+            achievementProgressValue = input("\nEnter maximum value of progress: ")
+            dataSet[achievementKey]['goal'] = int(achievementProgressValue)
+            dataSet[achievementKey]['current_progress'] = 0
 
         # Set icon's path
         global achievementIconPath
         if (achievementIconPath == None):
             achievementIconPath = input("Enter icon's path (in Godot's format): ")
-            dataSet[achievementName]['icon_path'] = achievementIconPath
+            dataSet[achievementKey]['icon_path'] = achievementIconPath
         else:
             isOverwriteIconPath = input('Do you want to set previous icon path? \ny/n: ')
             achievementIconPath = achievementNewIconPath = input("Enter new icon's path (in Godot's format): ") if isOverwriteIconPath == 'n' else achievementIconPath
-            dataSet[achievementName]['icon_path'] = achievementNewIconPath if isOverwriteIconPath == 'n' else achievementIconPath
+            dataSet[achievementKey]['icon_path'] = achievementNewIconPath if isOverwriteIconPath == 'n' else achievementIconPath
 
         # Set the default value that the player has not received this achievement at the moment
-        dataSet[achievementName]['is_have'] = 0
+        dataSet[achievementKey]['achieved'] = False
 
         # Set flag to 'y' or 'n' to continue adding achievements or not
         bContinue = input("Do you want to add new achievement?: y/n: ")
@@ -101,7 +107,7 @@ def createNewFile():
 
     pass
 
-def checkIsNameExists(data, name):
+def checkKeyExists(data, name):
     dataKeysName = data.keys()
     for i in dataKeysName:
         if (name == i):
@@ -119,41 +125,47 @@ def addDataInCurrentFile():
         bContinue = 'y'
         # While flag is 'y' add achievement you need
         while (bContinue == 'y'):
-            # Enter name of achievement
-            achievementName = input("\nAchievement's name: ")
+            # Enter key of achievement
+            achievementKey = input("\nAchievement's key (You will have to use this from your code, pick a code friendly key like 'my_achievement'): ")
  
             # Get data from current JSON for comparison
             with open('achievements.json', 'r') as currentFile:
                 dataJson = json.load(currentFile)
 
             # Check this data if achievement name exists
-            if (checkIsNameExists(dataJson, achievementName) == True):    
-                dataSet[achievementName] = {}
+            if (checkKeyExists(dataJson, achievementKey) == True):    
+                dataSet[achievementKey] = {}
+
+                # Enter name of achievement
+                achievementName = input("\nAchievement's name: ")    
+                dataSet[achievementKey]['name'] = achievementName
 
                 # Enter achievement's description
                 achievementDesc = input("Achievement's description: ")
-                dataSet[achievementName]['description'] = achievementDesc
+                dataSet[achievementKey]['description'] = achievementDesc
 
                 isASecretAchievement = input("Is it a secret achievement? \ny/n: ")
-                dataSet[achievementName]['is_secret'] = 1 if isASecretAchievement == 'y' else 0
+                dataSet[achievementKey]['is_secret'] = 1 if isASecretAchievement == 'y' else 0
 
-                # Add achievement's progress if you need
-                isHaveProgress = input("Is it have a progress? \ny/n: ")
-                achievementProgressValue = input("\nEnter maximum value of a progress: ") if isHaveProgress == 'y' else 0
-                dataSet[achievementName]['progress'] = int(achievementProgressValue)
+                # Add achievement's goal if you need
+                achievementProgress = input("Does it have progress? \ny/n: ")
+                if (achievementProgress == 'y'):
+                    achievementProgressValue = input("\nEnter maximum value of progress: ")
+                    dataSet[achievementKey]['goal'] = int(achievementProgressValue)
+                    dataSet[achievementKey]['current_progress'] = 0
 
                 # Set icon's path
                 global achievementIconPath
                 if (achievementIconPath == None):
                     achievementIconPath = input("Enter icon's path (in Godot's format): ")
-                    dataSet[achievementName]['icon_path'] = achievementIconPath
+                    dataSet[achievementKey]['icon_path'] = achievementIconPath
                 else:
                     isOverwriteIconPath = input('Do you want to set previous icon path? \ny/n: ')
                     achievementIconPath = achievementNewIconPath = input("Enter new icon's path (in Godot's format): ") if isOverwriteIconPath == 'n' else achievementIconPath
-                    dataSet[achievementName]['icon_path'] = achievementNewIconPath if isOverwriteIconPath == 'n' else achievementIconPath
+                    dataSet[achievementKey]['icon_path'] = achievementNewIconPath if isOverwriteIconPath == 'n' else achievementIconPath
                 
                 # Set the default value that the player has not received this achievement at the moment
-                dataSet[achievementName]['is_have'] = 0
+                dataSet[achievementKey]['achieved'] = False
                 
                 # Set flag to 'y' or 'n' to continue adding achievements or not
                 bContinue = input("Do you want to add new achievement? \ny/n: ")
