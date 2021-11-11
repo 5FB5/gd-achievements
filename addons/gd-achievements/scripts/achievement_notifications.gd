@@ -50,7 +50,7 @@ func _ready():
 
 
 func create_achievement_panel(achievement):
-	print_debug("AchievementSystem: Show achievement '" + achievement["name"] + "'")
+	print("AchievementSystem: Show achievement '" + achievement["name"] + "'")
 
 	var notification_instance = achievement_notification.instance()
 	add_child(notification_instance)
