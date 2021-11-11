@@ -16,7 +16,7 @@ config/icon="res://addons/gd-achievements/icon.png"
 
 [autoload]
 
-AchievementManager="res://addons/gd-achievements/scripts/achievement_manager.gd"
+AchievementManager="*res://addons/gd-achievements/scripts/achievement_manager.gd"
 
 [editor_plugins]
 
