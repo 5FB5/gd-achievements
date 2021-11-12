@@ -19,7 +19,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-VERSION = "1.3.0-beta"
+VERSION = "1.4.0-release"
 
 import json
 import os
@@ -225,7 +225,8 @@ def addDataInCurrentFile():
         sys.exit() if isExit == 'q' else createNewFile()
 
 print("\nAchievement JSON File Generator")
-print("by 5FB5")
+print("Initially developed by 5FB5")
+print("Contributors: jabsatz (Glass Brick Studio)")
 print("Version: " + VERSION)
 print("___________________________________")
 
