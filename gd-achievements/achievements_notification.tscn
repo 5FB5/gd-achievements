@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://gd-achievements/achievements_notification.gd" type="Script" id=1]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0627451, 0.0509804, 0.0509804, 0.705882 )
@@ -46,15 +48,16 @@ tracks/1/path = NodePath("achievementPanel:rect_position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/keys = {
 "points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.204192, -209.058 ),
 "times": PoolRealArray( 0, 0.9 )
 }
 
 [node name="root" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+margin_right = 443.0
+margin_bottom = 147.0
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -69,9 +72,9 @@ __meta__ = {
 
 [node name="PanelContainer" type="PanelContainer" parent="achievementPanel"]
 margin_left = 30.0
-margin_top = 30.0
+margin_top = 15.0
 margin_right = 396.0
-margin_bottom = 146.0
+margin_bottom = 131.0
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -79,9 +82,9 @@ __meta__ = {
 
 [node name="achievementIcon" type="MarginContainer" parent="achievementPanel"]
 margin_left = 41.0
-margin_top = 37.0
+margin_top = 21.0
 margin_right = 144.0
-margin_bottom = 140.0
+margin_bottom = 124.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -93,9 +96,9 @@ expand = true
 
 [node name="achievementDescription" type="MarginContainer" parent="achievementPanel"]
 margin_left = 147.0
-margin_top = 54.0
+margin_top = 27.0
 margin_right = 392.0
-margin_bottom = 141.0
+margin_bottom = 114.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -109,9 +112,9 @@ autowrap = true
 
 [node name="mainTitle" type="Label" parent="achievementPanel"]
 margin_left = 147.0
-margin_top = 42.0
+margin_top = 24.0
 margin_right = 392.0
-margin_bottom = 56.0
+margin_bottom = 38.0
 text = "Achievement Unlocked!"
 align = 1
 __meta__ = {
