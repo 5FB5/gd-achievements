@@ -115,6 +115,48 @@ def checkKeyExists(data, name):
 
     return True
 
+def checkAchievementsAreOld():
+    with open('achievements.json', 'r') as currentFile:
+        dataJson = json.load(currentFile)
+        dataKeysName = dataJson.keys()
+        for i in dataKeysName:
+            if ('is_have' in dataJson[i]):
+                return True
+        return False
+
+def promptUpdate():
+    wantUpdate = input("\nIt looks like your achievements.json file is from a previous version, would you want to update it? \ny/n: ")
+    if (wantUpdate == 'y'):
+        with open('achievements.json', 'r') as currentFile:
+            newDataSet = {}
+            dataJson = json.load(currentFile)
+            dataKeysName = dataJson.keys()
+            for i in dataKeysName:
+                print("\nUpdating achievement '" + i + "'")
+                achievementKey = input("\nPlease enter the new achievement's key (You will have to use this from your code, pick a code friendly key like 'my_achievement'): ")
+                wantUpdateIconPath = input("\nDo you want to update icon's path? \ny/n: ") == 'y'
+                if (wantUpdateIconPath):
+                    achievementIconPath = input("\nEnter new icon's path (in Godot's format): ")
+                newDataSet[achievementKey] = {
+                    'name': i,
+                    'description': dataJson[i]['description'],
+                    'is_secret': True if dataJson[i]['is_secret'] == 1 else False,
+                    'icon_path': achievementIconPath if wantUpdateIconPath else dataJson[i]['icon_path'],
+                    'achieved': True if dataJson[i]['is_have'] == 1 else False,
+                }
+                if (dataJson[i]['progress'] > 0):
+                    newDataSet[achievementKey]['goal'] = dataJson[i]['progress']
+                    newDataSet[achievementKey]['current_progress'] = 0
+                for key in dataJson[i]:
+                    # parsing extra keys added by the user
+                    if (key not in newDataSet[achievementKey] and key != 'is_have' and key != 'progress'):
+                        newDataSet[achievementKey][key] = dataJson[i][key]
+                
+            print("\nUpdate complete, writing to file...")
+            generateNewJson(newDataSet)
+
+
+
 def addDataInCurrentFile():
     # Do you want to modify current file?
     isFileCreate = input('\n"achievements.json" exists. Do you want to add data in current file? \ny/n: ')
@@ -191,6 +233,9 @@ while (isStopped == False):
     # If file not exists, create new
     if (not os.path.isfile("achievements.json")):
         createNewFile()
+    # Prompt update if achievements.json is from previous version
+    elif checkAchievementsAreOld() == True:
+        promptUpdate()    
     # Else add data in current file
     else:
         addDataInCurrentFile()
