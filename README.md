@@ -96,7 +96,7 @@ All methods can be called from the `AchievementManager` singleton:
   - `icon_path: String` - The path of the icon that shows up in the achievement notification
   - `achieved: bool` - Wether or not the achievement is complete
 
-- `reset_achievements()` - debug function, resets all received achievements by setting "is_have" field to 0 for all achievements.
+- `reset_achievements()` - debug function, resets all received achievements by setting "achieved" field to 0 for all achievements.
 
 # Customize Notifications
 
