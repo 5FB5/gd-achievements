@@ -1,7 +1,7 @@
 # gd-achievements
 
 <p align="center"> <img src="https://imgur.com/vIftQvp.png"/></p>
-<p align="center">Achievement system plugin for Godot 3.x.x Engine</p>
+<b><p align="center">Achievement System Plugin for Godot Engine ver. 3 </p></b>
 
 # How to install in your project?
 
