@@ -133,4 +133,13 @@ When you run achievements_generator.py with an old achievements.json file, you w
 
 Check that "addons/gd-achievements/scripts/achievements_manager.gd" file activated as singleton (check <b>How to install in your project?</b>)
 
+## Plugin doesn't work on Android devices
+You must add to your exporter ```.json``` format for non-resources export:
+
+```Export => Click on Android Presets => Go to Resources tab``` and set ```.json``` as filter for resources to export.
+
+![image](https://user-images.githubusercontent.com/15859698/226280315-4a3d872b-4090-4f84-856d-5d081b32556a.png)
+
+<i>Thanks to Dark8Ghost for the found fix</i>
+
 # I'll accept all problems and suggestions that you write in the repository on GitHub on "Issues" section
