@@ -12,109 +12,109 @@ corner_radius_bottom_left = 10
 [sub_resource type="Animation" id=2]
 resource_name = "hide"
 tracks/0/type = "bezier"
-tracks/0/path = NodePath("achievementPanel:rect_position:x")
+tracks/0/path = NodePath("achievementPanel:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.423985, 66.8042, -560, -0.426136, 37.7292, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.6 )
+"points": PackedFloat32Array( 0, -0.25, 0, 0.423985, 66.8042, -560, -0.426136, 37.7292, 0.25, 0 ),
+"times": PackedFloat32Array( 0, 0.6 )
 }
 tracks/1/type = "bezier"
-tracks/1/path = NodePath("achievementPanel:rect_position:y")
+tracks/1/path = NodePath("achievementPanel:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = false
 tracks/1/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.42, 107.007, 18.042, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.7 )
+"points": PackedFloat32Array( 0, -0.25, 0, 0.42, 107.007, 18.042, -0.25, 0, 0.25, 0 ),
+"times": PackedFloat32Array( 0, 0.7 )
 }
 
 [sub_resource type="Animation" id=3]
 tracks/0/type = "bezier"
-tracks/0/path = NodePath("achievementPanel:rect_position:x")
+tracks/0/path = NodePath("achievementPanel:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"points": PoolRealArray( -560, -0.25, 0, 0.353829, 23.433, 1.63255, -0.25, 50.875, 0.375423, -48.0204 ),
-"times": PoolRealArray( 0, 0.5 )
+"points": PackedFloat32Array( -560, -0.25, 0, 0.353829, 23.433, 1.63255, -0.25, 50.875, 0.375423, -48.0204 ),
+"times": PackedFloat32Array( 0, 0.5 )
 }
 tracks/1/type = "bezier"
-tracks/1/path = NodePath("achievementPanel:rect_position:y")
+tracks/1/path = NodePath("achievementPanel:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = false
 tracks/1/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.204192, -209.058 ),
-"times": PoolRealArray( 0, 0.9 )
+"points": PackedFloat32Array( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.204192, -209.058 ),
+"times": PackedFloat32Array( 0, 0.9 )
 }
 
 [node name="root" type="Control"]
-margin_right = 443.0
-margin_bottom = 147.0
+offset_right = 443.0
+offset_bottom = 147.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="achievementPanel" type="Control" parent="."]
-margin_left = -560.0
-margin_right = -520.0
-margin_bottom = 40.0
+offset_left = -560.0
+offset_right = -520.0
+offset_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="PanelContainer" type="PanelContainer" parent="achievementPanel"]
-margin_left = 30.0
-margin_top = 15.0
-margin_right = 396.0
-margin_bottom = 131.0
-custom_styles/panel = SubResource( 1 )
+offset_left = 30.0
+offset_top = 15.0
+offset_right = 396.0
+offset_bottom = 131.0
+theme_override_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="achievementIcon" type="MarginContainer" parent="achievementPanel"]
-margin_left = 41.0
-margin_top = 21.0
-margin_right = 144.0
-margin_bottom = 124.0
+offset_left = 41.0
+offset_top = 21.0
+offset_right = 144.0
+offset_bottom = 124.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TextureRect" type="TextureRect" parent="achievementPanel/achievementIcon"]
-margin_right = 103.0
-margin_bottom = 103.0
+offset_right = 103.0
+offset_bottom = 103.0
 expand = true
 
 [node name="achievementDescription" type="MarginContainer" parent="achievementPanel"]
-margin_left = 147.0
-margin_top = 27.0
-margin_right = 392.0
-margin_bottom = 114.0
+offset_left = 147.0
+offset_top = 27.0
+offset_right = 392.0
+offset_bottom = 114.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="description" type="Label" parent="achievementPanel/achievementDescription"]
-margin_top = 36.0
-margin_right = 245.0
-margin_bottom = 50.0
+offset_top = 36.0
+offset_right = 245.0
+offset_bottom = 50.0
 align = 1
 autowrap = true
 
 [node name="mainTitle" type="Label" parent="achievementPanel"]
-margin_left = 147.0
-margin_top = 24.0
-margin_right = 392.0
-margin_bottom = 38.0
+offset_left = 147.0
+offset_top = 24.0
+offset_right = 392.0
+offset_bottom = 38.0
 text = "Achievement Unlocked!"
 align = 1
 __meta__ = {

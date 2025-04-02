@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/achievement_earned.wav-78cf2c2e96c662c2a44e42f1d6faeff7.sample"
+type="AudioStreamWAV"
+uid="uid://dv4jie2ouxq6n"
+path="res://.godot/imported/achievement_earned.wav-78cf2c2e96c662c2a44e42f1d6faeff7.sample"
 
 [deps]
 
 source_file="res://addons/gd-achievements/resources/sounds/achievement_earned.wav"
-dest_files=[ "res://.import/achievement_earned.wav-78cf2c2e96c662c2a44e42f1d6faeff7.sample" ]
+dest_files=["res://.godot/imported/achievement_earned.wav-78cf2c2e96c662c2a44e42f1d6faeff7.sample"]
 
 [params]
 
@@ -17,5 +18,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
 edit/normalize=false
-edit/loop=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
 compress/mode=0
