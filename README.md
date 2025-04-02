@@ -73,8 +73,6 @@ To get the achievements, you will need to call the singleton `AchievementManager
 - `progress_achievement(key, progress)` - If your achievement has a progression number (i.e., die 100 times), you can call this function with the amount you want to add to the progress. It checks the `current_progress` of an achievement against it's `goal`, if it's higher, it will trigger the notification and mark your achievement as `achieved: true`
 - `unlock_achievement(key)` - Instantly unlocks an achievement (if it's not already unlocked) and triggers the notification
 
-<b>More about plugin and API you can read in</b> ```addons/gd_achievements``` <b>folder</b>
-
 ![code](https://imgur.com/sMhvf6T.png)
 
 As a result you'll see something like this
@@ -109,6 +107,9 @@ When you run achievements_generator.py with an old achievements.json file, you w
 
 - **Move your achievements.json file to the `gd-achievements` folder**
   (NOT the `addons/gd-achievements` folder, the new one created in the root)
+
+# Documentation
+<b>More about plugin and API you can read in</b> ```addons/gd_achievements``` <b>folder</b>
 
 # Q/A
 
