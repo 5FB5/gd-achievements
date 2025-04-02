@@ -8,14 +8,13 @@ var achievementCount = 0
 
 signal achievement_unlocked(achievement)
 
-
 func _ready():
 	achievements = read_achievements_from_file()
 	check_json_on_device()
 
 
 func progress_achievement(key, progress):
-	print("AchievementSystem: progress achievement(" + key + ", " + String(progress) + ")")
+	print("AchievementSystem: progress achievement(" + key + ", " + String.num(progress) + ")")
 	achievements[key]["current_progress"] = min(
 		progress + achievements[key]["current_progress"], achievements[key]["goal"]
 	)
@@ -35,9 +34,10 @@ func get_all_achievements():
 	return achievements
 
 func read_achievements_from_file():
-	var file = File.new()
-	file.open(ACHIEVEMENT_JSON_REFERENCE_PATH, File.READ)
-	var data = parse_json(file.get_as_text())
+	var file = FileAccess.open(ACHIEVEMENT_JSON_REFERENCE_PATH, FileAccess.READ)
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(file.get_as_text())
+	var data = test_json_conv.get_data()
 	for key in data.keys():
 		data[key]["key"] = key
 	file.close()
@@ -48,10 +48,12 @@ func parse_to_json(original_data):
 	var data = original_data
 	for key in data.keys():
 		data[key].erase("key") # do not include the "key" property in the json
-	return to_json(data)
+	return JSON.new().stringify(data)
 
 func parse_from_file(file):
-	var data = parse_json(file.get_as_text())
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(file.get_as_text())
+	var data = test_json_conv.get_data()
 	for key in data.keys():
 		data[key]["key"] = key # add the "key" property to the final dict
 	return data
@@ -64,9 +66,8 @@ func reset_achievements():
 
 
 func rewrite_achievements_data_to_user_json():
-	var userFileJson = File.new()
-	if userFileJson.file_exists(ACHIEVEMENT_JSON_USER_PATH):
-		userFileJson.open(ACHIEVEMENT_JSON_USER_PATH, File.WRITE)
+	if FileAccess.file_exists(ACHIEVEMENT_JSON_USER_PATH):
+		var userFileJson = FileAccess.open(ACHIEVEMENT_JSON_USER_PATH, FileAccess.WRITE)
 		userFileJson.store_string(parse_to_json(achievements))
 		userFileJson.close()
 	else:
@@ -82,9 +83,8 @@ func update_reference_json(achievements_from_user_file_buf):
 
 
 func update_json_on_device_before_closing():
-	var userFile = File.new()
-	if userFile.file_exists(ACHIEVEMENT_JSON_USER_PATH) and achievements != null:
-		userFile.open(ACHIEVEMENT_JSON_USER_PATH, File.WRITE)
+	if FileAccess.file_exists(ACHIEVEMENT_JSON_USER_PATH) and achievements != null:
+		var userFile = FileAccess.open(ACHIEVEMENT_JSON_USER_PATH, FileAccess.WRITE)
 		userFile.store_string(parse_to_json(achievements))
 		userFile.close()
 	print("AchievementSystem: update_json_on_device_before_closing()")
@@ -92,16 +92,16 @@ func update_json_on_device_before_closing():
 
 func check_json_on_device():
 	print("AchievementSystem: Checking 'achievements.json' file on device...")
-	var json_user_file = File.new()
-	if not json_user_file.file_exists(ACHIEVEMENT_JSON_USER_PATH):
+	var json_user_file
+	if not FileAccess.file_exists(ACHIEVEMENT_JSON_USER_PATH):
 		print("AchievementSystem: 'achievements.json' not found on device. Creating...")
-		json_user_file.open(ACHIEVEMENT_JSON_USER_PATH, File.WRITE)
+		json_user_file = FileAccess.open(ACHIEVEMENT_JSON_USER_PATH, FileAccess.WRITE)
 		json_user_file.store_line(parse_to_json(achievements))
 		json_user_file.close()
 		print("AchievementSystem: File created!")
 	else:
 		print("AchievementSystem:'achievements.json' is exists on device!")
-		json_user_file.open(ACHIEVEMENT_JSON_USER_PATH, File.READ)
+		json_user_file = FileAccess.open(ACHIEVEMENT_JSON_USER_PATH, FileAccess.READ)
 
 		print("AchievementSystem: Getting data from file...")
 		var achievements_from_user_file_buf = parse_from_file(json_user_file)
@@ -115,7 +115,7 @@ func check_json_on_device():
 
 
 func _notification(what):
-	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		update_json_on_device_before_closing()
 
 

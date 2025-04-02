@@ -1,5 +1,5 @@
 # File generator script code is under MIT License
-# Copyright (c) 2020 Valeriy Zubko
+# Copyright (c) 2025 Valeriy Zubko
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-VERSION = "1.4.0-release"
+VERSION = "1.4.1-release"
 
 import json
 import os
@@ -224,19 +224,20 @@ def addDataInCurrentFile():
         isExit = input('You really want to quit or create new file? \nq\c: ')
         sys.exit() if isExit == 'q' else createNewFile()
 
-print("\nAchievement JSON File Generator")
-print("Initially developed by 5FB5")
-print("Contributors: jabsatz (Glass Brick Studio)")
-print("Version: " + VERSION)
-print("___________________________________")
+if __name__ == "__main__":
+    print("\nAchievement JSON File Generator")
+    print("Initially developed by 5FB5")
+    print("Contributors: jabsatz (Glass Brick Studio)")
+    print("Version: " + VERSION)
+    print("___________________________________")
 
-while (isStopped == False):
-    # If file not exists, create new
-    if (not os.path.isfile("achievements.json")):
-        createNewFile()
-    # Prompt update if achievements.json is from previous version
-    elif checkAchievementsAreOld() == True:
-        promptUpdate()    
-    # Else add data in current file
-    else:
-        addDataInCurrentFile()
+    while (isStopped == False):
+        # If file not exists, create new
+        if (not os.path.isfile("achievements.json")):
+            createNewFile()
+        # Prompt update if achievements.json is from previous version
+        elif checkAchievementsAreOld() == True:
+            promptUpdate()    
+        # Else add data in current file
+        else:
+            addDataInCurrentFile()
