@@ -1,7 +1,7 @@
 # gd-achievements
 
 <p align="center"> <img src="https://imgur.com/vIftQvp.png"/></p>
-<b><p align="center">Achievement System Plugin for Godot Engine ver. 3 </p></b>
+<b><p align="center">Achievement System Plugin for Godot Engine 4.4.1 </p></b>
 
 # How to install in your project?
 
@@ -73,30 +73,13 @@ To get the achievements, you will need to call the singleton `AchievementManager
 - `progress_achievement(key, progress)` - If your achievement has a progression number (i.e., die 100 times), you can call this function with the amount you want to add to the progress. It checks the `current_progress` of an achievement against it's `goal`, if it's higher, it will trigger the notification and mark your achievement as `achieved: true`
 - `unlock_achievement(key)` - Instantly unlocks an achievement (if it's not already unlocked) and triggers the notification
 
+<b>More about plugin and API you can read in</b> ```addons/gd_achievements``` <b>folder</b>
+
 ![code](https://imgur.com/sMhvf6T.png)
 
 As a result you'll see something like this
 
 ![ingame_example](https://imgur.com/24MtHit.png)
-
-# AchievementManager API
-
-All methods can be called from the `AchievementManager` singleton:
-
-- `progress_achievement(key, progress)` - see above
-- `unlock_achievement(key)` - see above
-
-- `get_all_achievements()` - returns a dictionary (indexed by key) of all the achievements you have in the game
-- `get_achievement(key)` - returns the full dictionary of your achievement. the mandatory data an achievement has is:
-
-  - `key: String` - The key of your achievement (same as the one you used to get the achievement)
-  - `name: String` - The name of your achievement
-  - `goal: int` - The maximum progress of your achievement, at which point it'll be marked as achieved (only for progress achievements)
-  - `current_progress: int` - The current progress of your achievement (only for progress achievements)
-  - `icon_path: String` - The path of the icon that shows up in the achievement notification
-  - `achieved: bool` - Wether or not the achievement is complete
-
-- `reset_achievements()` - debug function, resets all received achievements by setting "achieved" field to 0 for all achievements.
 
 # Customize Notifications
 
@@ -107,7 +90,7 @@ The AchievementSystem will automatically call the following methods on your cust
 - `on_show()` - This function will be called when the notification appears on screen, in case you want to trigger an animation
 - `on_hide()` - This function will be called before the notification leaves the screen, in case you want to trigger an animation
 
-# Upgrade from v1.0.x
+# Upgrade achievements file structure from v1.0.x
 
 In order to upgrade, please do the following:
 
@@ -128,6 +111,9 @@ When you run achievements_generator.py with an old achievements.json file, you w
   (NOT the `addons/gd-achievements` folder, the new one created in the root)
 
 # Q/A
+
+## How to get branch for Godot 3.x.x ?
+Now code for Godot 3.x.x is placed to ```godot3``` branch and you should switch to this if you need it
 
 ## I have an error "The Identifier "AchievementsManager" is not declared in the current scope"!
 

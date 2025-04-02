@@ -1,126 +1,122 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://4tw7uxcnp1py"]
 
-[ext_resource path="res://gd-achievements/achievements_notification.gd" type="Script" id=1]
+[ext_resource type="Script" uid="uid://dd53nj72qvk8g" path="res://gd-achievements/achievements_notification.gd" id="1"]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.0627451, 0.0509804, 0.0509804, 0.705882 )
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.0627451, 0.0509804, 0.0509804, 0.705882)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id="2"]
 resource_name = "hide"
 tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("achievementPanel:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"points": PackedFloat32Array( 0, -0.25, 0, 0.423985, 66.8042, -560, -0.426136, 37.7292, 0.25, 0 ),
-"times": PackedFloat32Array( 0, 0.6 )
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.423985, 66.8042, -560, -0.426136, 37.7292, 0.25, 0),
+"times": PackedFloat32Array(0, 0.6)
 }
 tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = false
 tracks/1/path = NodePath("achievementPanel:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = false
 tracks/1/keys = {
-"points": PackedFloat32Array( 0, -0.25, 0, 0.42, 107.007, 18.042, -0.25, 0, 0.25, 0 ),
-"times": PackedFloat32Array( 0, 0.7 )
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.42, 107.007, 18.042, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.7)
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id="3"]
 tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("achievementPanel:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"points": PackedFloat32Array( -560, -0.25, 0, 0.353829, 23.433, 1.63255, -0.25, 50.875, 0.375423, -48.0204 ),
-"times": PackedFloat32Array( 0, 0.5 )
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-560, -0.25, 0, 0.353829, 23.433, 1.63255, -0.25, 50.875, 0.375423, -48.0204),
+"times": PackedFloat32Array(0, 0.5)
 }
 tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = false
 tracks/1/path = NodePath("achievementPanel:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = false
 tracks/1/keys = {
-"points": PackedFloat32Array( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.204192, -209.058 ),
-"times": PackedFloat32Array( 0, 0.9 )
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.204192, -209.058),
+"times": PackedFloat32Array(0, 0.9)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pclc3"]
+_data = {
+&"hide": SubResource("2"),
+&"popup": SubResource("3")
 }
 
 [node name="root" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 offset_right = 443.0
 offset_bottom = 147.0
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("1")
 
 [node name="achievementPanel" type="Control" parent="."]
+anchors_preset = 0
 offset_left = -560.0
 offset_right = -520.0
 offset_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="PanelContainer" type="PanelContainer" parent="achievementPanel"]
+layout_mode = 0
 offset_left = 30.0
 offset_top = 15.0
 offset_right = 396.0
 offset_bottom = 131.0
-theme_override_styles/panel = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+theme_override_styles/panel = SubResource("1")
 
 [node name="achievementIcon" type="MarginContainer" parent="achievementPanel"]
+layout_mode = 0
 offset_left = 41.0
 offset_top = 21.0
 offset_right = 144.0
 offset_bottom = 124.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TextureRect" type="TextureRect" parent="achievementPanel/achievementIcon"]
-offset_right = 103.0
-offset_bottom = 103.0
-expand = true
+layout_mode = 2
+expand_mode = 1
 
 [node name="achievementDescription" type="MarginContainer" parent="achievementPanel"]
+layout_mode = 0
 offset_left = 147.0
 offset_top = 27.0
 offset_right = 392.0
 offset_bottom = 114.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="description" type="Label" parent="achievementPanel/achievementDescription"]
-offset_top = 36.0
-offset_right = 245.0
-offset_bottom = 50.0
-align = 1
-autowrap = true
+layout_mode = 2
+horizontal_alignment = 1
 
 [node name="mainTitle" type="Label" parent="achievementPanel"]
+layout_mode = 0
 offset_left = 147.0
 offset_top = 24.0
 offset_right = 392.0
 offset_bottom = 38.0
 text = "Achievement Unlocked!"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/hide = SubResource( 2 )
-anims/popup = SubResource( 3 )
+libraries = {
+&"": SubResource("AnimationLibrary_pclc3")
+}

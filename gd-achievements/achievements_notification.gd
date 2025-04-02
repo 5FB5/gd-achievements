@@ -1,6 +1,5 @@
 extends Control
 
-
 func set_achievement(achievement):
 	get_node("achievementPanel/achievementDescription/description").text = achievement["name"]
 	get_node("achievementPanel/achievementIcon/TextureRect").texture = load(achievement["icon_path"])
