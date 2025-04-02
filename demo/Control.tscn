@@ -1,22 +1,17 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://3vp1tv2mng2s"]
 
-[ext_resource path="res://addons/gd-achievements/scripts/achievement_notifications.gd" type="Script" id=1]
-[ext_resource path="res://demo/Control.gd" type="Script" id=2]
+[ext_resource type="Script" uid="uid://c1x6qutp4gdi8" path="res://addons/gd-achievements/scripts/achievement_notifications.gd" id="1"]
+[ext_resource type="Script" uid="uid://cbsv7461veyeg" path="res://demo/Control.gd" id="2"]
 
 [node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("2")
 
 [node name="AchievementNotifications" type="Control" parent="."]
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-grow_direction = 0
-position = 2
+script = ExtResource("1")

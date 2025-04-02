@@ -6,12 +6,13 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
+config_version=5
 
 [application]
 
 config/name="Achievement Manager"
 run/main_scene="res://demo/Control.tscn"
+config/features=PackedStringArray("4.4")
 config/icon="res://addons/gd-achievements/icon.png"
 
 [autoload]
@@ -20,14 +21,10 @@ AchievementManager="*res://addons/gd-achievements/scripts/achievement_manager.gd
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/gd-achievements/plugin.cfg" )
+enabled=PackedStringArray("res://addons/gd-achievements/plugin.cfg")
 
 [importer_defaults]
 
 texture={
 "flags/filter": false
 }
-
-[rendering]
-
-environment/default_environment="res://default_env.tres"
