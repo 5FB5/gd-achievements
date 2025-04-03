@@ -3,6 +3,14 @@
 <p align="center"> <img src="https://imgur.com/vIftQvp.png"/></p>
 <b><p align="center">Achievement System Plugin for Godot Engine 4.4.1 </p></b>
 
+# Table of contents
+- [How to install in your project?](#how-to-install-in-your-project)
+- [How to add custom achievements?](#how-to-add-custom-achievements)
+- [Customize Notifications](#customize-notifications)
+- [Upgrade achievements file structure from v1.0.x](#upgrade-achievements-file-structure-from-v10x)
+- [Documentation](#documentation)
+- [Q/A](#qa)
+
 # How to install in your project?
 
 ## Copy from GitHub repository
