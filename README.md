@@ -1,5 +1,5 @@
 <p align="center"> <img width=80 height=80 src="https://imgur.com/vIftQvp.png"/></p>
-<h1><p align="center">Achievement System Plugin for Godot Engine 4.4.1 </p></h1>
+<h1><p align="center">Achievement System Plugin for Godot Engine 4.4 </p></h1>
 
 <p align="center">This is a plugin that allows you to create custom achievements with notification in UI with simple API</p>
 
